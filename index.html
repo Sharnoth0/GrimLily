@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrimLily | タイトル未定 公式サイト</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500&family=Quicksand:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fefefe;--off:#faf9fc;
+  --sf:#e6f2f7;--sl:#d0eaf4;--sm:#b4dbe8;--sd:#89c2d4;
+  --lv:#ece4f3;--ll:#f5f0fa;--lm:#d8cce6;--ld:#c4b0d8;
+  --rs:#f0c6d9;--rl:#f8e6ef;--rp:#fdf5f9;
+  --tx:#2c3640;--tm:#5a6d7a;--tl:#8a9dad;
+  --ac:#9dc0cc;--wm:#d1b3c3;
+  --fd:'Cormorant Garamond',serif;--fb:'Noto Serif JP',serif;
+  --fu:'Quicksand',sans-serif;--fa:'Playfair Display',serif;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hidden;padding-bottom:64px}
+::selection{background:var(--sl);color:var(--tx)}
+
+/* ===== LOADER — APPLE ===== */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity 1s,visibility 1s}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-apple{position:relative;width:54px;height:65px;animation:appleBreath 3s ease-in-out infinite}
+.loader-apple svg{width:100%;height:100%;filter:drop-shadow(0 2px 12px rgba(209,179,195,.25))}
+.loader-ring{position:absolute;inset:-12px;border-radius:50%;border:1px solid transparent;border-top-color:var(--rs);animation:loaderSpin 2.4s linear infinite;opacity:.3}
+@keyframes appleBreath{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.05);opacity:1}}
+@keyframes loaderSpin{to{transform:rotate(360deg)}}
+.loader-text{font-family:var(--fd);font-size:1.15rem;letter-spacing:.28em;color:var(--tm);font-weight:300;opacity:0;animation:fadeIn 1s .3s forwards}
+.loader-sub{font-family:var(--fu);font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--tl);opacity:0;animation:fadeIn 1s .6s forwards;margin-top:-20px}
+
+/* ===== TOP LOGO ===== */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:99;padding:22px 40px;display:flex;justify-content:center;transition:all .6s}
+.top-bar.scrolled{padding:14px 40px;background:rgba(254,254,252,.5);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.35)}
+.top-logo{font-family:var(--fd);font-size:1.2rem;font-weight:300;letter-spacing:.2em;color:rgba(255,255,255,.85);text-decoration:none;transition:color .6s;opacity:0;animation:fadeIn .8s .4s forwards}
+.top-bar.scrolled .top-logo{color:var(--tm)}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 20px;height:54px;
+  background:rgba(250,249,252,.4);backdrop-filter:blur(32px) saturate(1.6);-webkit-backdrop-filter:blur(32px) saturate(1.6);
+  border-top:1px solid rgba(255,255,255,.5);box-shadow:0 -2px 20px rgba(137,194,212,.05);
+  transform:translateY(100%);animation:slideUp .5s 1s forwards}
+@keyframes slideUp{to{transform:none}}
+.bottom-nav a,.bottom-nav button{font-family:var(--fu);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--tl);padding:8px 13px;border-radius:22px;background:transparent;border:none;cursor:pointer;transition:all .3s;white-space:nowrap;display:flex;align-items:center;gap:4px;line-height:1}
+.bottom-nav a:hover,.bottom-nav button:hover{background:rgba(236,228,243,.35);color:var(--tm)}
+.bottom-nav a.active{background:rgba(137,194,212,.12);color:var(--tx)}
+.nav-sep{width:1px;height:16px;background:linear-gradient(180deg,transparent,var(--lm),transparent);flex-shrink:0;margin:0 5px;opacity:.35}
+.bottom-nav svg{width:12px;height:12px;flex-shrink:0;opacity:.65}
+
+/* ===== HERO ===== */
+#hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.hero-bg{position:absolute;inset:0;background-image:url('https://sharnoth0.github.io/images/告知イラストラフイメージ.png');background-size:cover;background-position:center 12%;animation:heroB 22s ease-in-out infinite alternate}
+@keyframes heroB{0%{transform:scale(1)}100%{transform:scale(1.04)}}
+.hero-fade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(44,54,64,.03) 0%,transparent 20%,transparent 40%,rgba(250,249,252,.2) 55%,rgba(250,249,252,.65) 72%,rgba(254,254,254,.92) 84%,var(--white) 94%);}
+.hero-vignette{position:absolute;inset:0;box-shadow:inset 0 0 200px rgba(44,54,64,.05);pointer-events:none}
+.hero-shimmer{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.hero-shimmer::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg at 50% 50%,transparent 0%,rgba(255,255,255,.04) 10%,transparent 20%,rgba(240,198,217,.03) 30%,transparent 40%,rgba(157,192,204,.03) 50%,transparent 60%);animation:shimmerSpin 30s linear infinite}
+@keyframes shimmerSpin{to{transform:rotate(360deg)}}
+.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.h-particle{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);animation:hFloat linear infinite}
+@keyframes hFloat{0%{transform:translateY(100vh) scale(0);opacity:0}20%{opacity:1}80%{opacity:.6}100%{transform:translateY(-20vh) scale(1.2);opacity:0}}
+.sakura{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2;-webkit-mask-image:linear-gradient(180deg,transparent 0%,black 12%);mask-image:linear-gradient(180deg,transparent 0%,black 12%)}
+.petal{position:absolute;background:var(--rs);border-radius:50% 0 50% 50%;animation:pDrift linear infinite}
+@keyframes pDrift{
+  0%{transform:translateY(-150px) rotate(0) translateX(0);opacity:0}
+  20%{opacity:var(--po,.16)}
+  82%{opacity:var(--po,.16)}
+  100%{transform:translateY(110vh) rotate(480deg) translateX(60px);opacity:0}
+}
+.hero-glow{position:absolute;top:-8%;left:28%;width:420px;height:420px;pointer-events:none;z-index:1;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,255,255,.1),transparent 65%);animation:gP 10s ease-in-out infinite alternate}
+@keyframes gP{0%{opacity:.3;transform:scale(1)}100%{opacity:.55;transform:scale(1.1)}}
+.hero-wave{position:absolute;bottom:-1px;left:0;right:0;z-index:3;pointer-events:none;line-height:0}
+.hero-wave svg{display:block;width:100%}
+.hero-bottom{position:relative;z-index:4;text-align:center;padding:0 24px 52px;opacity:0;animation:fadeUp 1.2s .5s forwards}
+.hero-title-wrap{display:inline-block;padding:28px 56px 24px;border-radius:16px;background:rgba(254,254,254,.35);backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);border:1px solid rgba(255,255,255,.4)}
+.hero-title{font-family:var(--fd);font-size:clamp(2rem,5.5vw,4rem);font-weight:300;letter-spacing:.18em;color:var(--tx)}
+.hero-sub{font-family:var(--fu);font-size:.72rem;letter-spacing:.38em;color:var(--tm);text-transform:uppercase;margin-top:8px}
+.hero-tagline{font-family:var(--fu);font-style:normal;font-size:.72rem;color:var(--tm);margin-top:18px;letter-spacing:.22em;opacity:0;animation:fadeIn 1s 1.5s forwards}
+.hero-divider{width:44px;height:1px;margin:18px auto 0;background:linear-gradient(90deg,transparent,var(--ac),var(--ld),transparent);opacity:0;animation:fadeIn .8s 1.3s forwards}
+.scroll-hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:4;opacity:0;animation:fadeIn 1s 2.2s forwards}
+.scroll-hint span{display:block;width:1px;height:22px;background:linear-gradient(to bottom,var(--tl),transparent);animation:sP 2.4s ease-in-out infinite}
+@keyframes sP{0%,100%{opacity:.1;transform:scaleY(.4)}50%{opacity:.35;transform:scaleY(1)}}
+
+/* ===== COMMON ===== */
+.s-label{font-family:var(--fu);font-size:.54rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.s-title{font-family:var(--fd);font-size:clamp(1.45rem,3vw,2.3rem);font-weight:300;letter-spacing:.1em;margin-bottom:42px;display:inline-block}
+.s-title .marker{background:linear-gradient(transparent 58%,rgba(209,179,195,.22) 58%,rgba(157,192,204,.18) 100%);padding:0 6px;border-radius:2px}
+.s-sub{font-family:var(--fa);font-style:italic;font-size:.9rem;color:var(--wm);letter-spacing:.04em;margin-bottom:48px}
+.s-wrap{max-width:920px;margin:0 auto;text-align:center}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.22,.61,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.22s}
+
+/* ===== SPACER ===== */
+.spacer-lg{height:300px;content:'';display:block}
+.spacer-md{height:100px}
+
+/* ===== SECTION DIVIDER ===== */
+.sec-divider{display:flex;align-items:center;justify-content:center;padding:10px 0;gap:14px}
+.sec-divider .dl{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--lm))}
+.sec-divider .dl:last-child{background:linear-gradient(90deg,var(--lm),transparent)}
+.sec-divider .dd{width:4px;height:4px;background:var(--wm);border-radius:50%;opacity:.3}
+
+/* ===== NEWS ===== */
+#news{background:var(--white);padding:140px 24px 40px}
+.news-list{max-width:660px;margin:0 auto 200px;text-align:left;padding-left:32px}
+.news-item{padding:20px 0;border-bottom:1px solid rgba(137,194,212,.08);display:flex;gap:18px;align-items:baseline}
+.news-item:first-child{border-top:1px solid rgba(137,194,212,.08)}
+.news-date{font-family:var(--fu);font-size:.74rem;letter-spacing:.1em;color:var(--ac);flex-shrink:0;min-width:92px}
+.news-tag{font-family:var(--fu);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:14px;background:var(--sf);color:var(--sd);flex-shrink:0}
+.news-tag.update{background:var(--ll);color:var(--ld)}
+.news-text{font-size:.94rem;color:var(--tm);font-weight:300;line-height:1.8}
+
+/* ===== INTRO ===== */
+#intro{background:var(--white);padding:100px 24px 40px}
+.intro-text{font-size:1.02rem;line-height:2.4;font-weight:300;color:var(--tm);max-width:620px;margin:0 auto}
+.intro-orn{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:44px;margin-bottom:200px}
+.intro-orn .l{width:36px;height:1px}
+.intro-orn .l:first-child{background:linear-gradient(90deg,transparent,var(--ac))}
+.intro-orn .l:last-child{background:linear-gradient(90deg,var(--ld),transparent)}
+.intro-orn .d{width:5px;height:5px;background:var(--wm);transform:rotate(45deg);opacity:.4}
+
+/* ===== CHARACTER ===== */
+#character{
+  padding:140px 24px 160px;
+  background:linear-gradient(180deg,var(--white) 0%,var(--sf) 10%,var(--ll) 28%,var(--rp) 48%,var(--ll) 68%,var(--sf) 86%,var(--white) 100%);
+}
+.char-top-nav{position:sticky;top:0;z-index:50;display:flex;justify-content:center;gap:4px;padding:10px 16px;margin:0 auto 56px;
+  background:rgba(255,255,255,.35);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);
+  border-radius:32px;max-width:fit-content;border:1px solid rgba(255,255,255,.45);
+  box-shadow:0 2px 14px rgba(137,194,212,.04);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.char-top-nav.visible{opacity:1;transform:none}
+.char-top-nav a{font-family:var(--fu);font-size:.62rem;letter-spacing:.14em;text-decoration:none;color:var(--tl);padding:7px 20px;border-radius:24px;transition:all .3s;white-space:nowrap}
+.char-top-nav a:hover,.char-top-nav a.active{background:rgba(255,255,255,.6);color:var(--tx);box-shadow:0 1px 8px rgba(137,194,212,.06)}
+
+/* RIGHT SIDE NAV */
+.char-side-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:16px;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.char-side-nav.visible{opacity:1;visibility:visible}
+.char-side-nav a{font-family:var(--fu);font-size:.58rem;letter-spacing:.12em;text-decoration:none;color:var(--tl);padding:8px 14px;border-radius:20px;background:rgba(255,255,255,.35);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.4);transition:all .35s;white-space:nowrap;position:relative}
+.char-side-nav a::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:0;border-radius:2px;background:linear-gradient(180deg,var(--ac),var(--wm));transition:height .3s}
+.char-side-nav a:hover{background:rgba(255,255,255,.6);color:var(--tm)}
+.char-side-nav a.active{background:rgba(255,255,255,.6);color:var(--tx);box-shadow:0 2px 12px rgba(137,194,212,.1)}
+.char-side-nav a.active::before{height:16px}
+
+.char-grid{max-width:1020px;margin:0 auto 200px;display:grid;gap:100px}
+
+/* CHAR CARD */
+.char-card{position:relative;background:rgba(255,255,255,.4);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.5);border-radius:20px;overflow:hidden;transition:transform .6s cubic-bezier(.22,.61,.36,1),box-shadow .6s}
+.char-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 8%,var(--ac) 35%,var(--wm) 50%,var(--ld) 65%,transparent 92%);opacity:0;transition:opacity .5s}
+.char-card:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(137,194,212,.12),0 6px 16px rgba(209,179,195,.06)}
+.char-card:hover::after{opacity:1}
+.char-body{display:flex;align-items:stretch;min-height:500px}
+.char-art{flex:0 0 360px;position:relative;overflow:hidden;background:linear-gradient(165deg,rgba(230,242,247,.25),rgba(245,240,250,.2) 50%,rgba(248,230,239,.15))}
+.char-art img{width:100%;height:100%;object-fit:contain;object-position:center bottom;padding:20px 12px 0;transition:transform .8s cubic-bezier(.22,.61,.36,1)}
+.char-card:hover .char-art img{transform:scale(1.02) translateY(-2px)}
+.char-art::after{content:'';position:absolute;top:0;right:0;bottom:0;width:50px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2));pointer-events:none}
+.char-detail{flex:1;padding:48px 44px 40px;display:flex;flex-direction:column;position:relative}
+.char-detail-inner{flex:1;display:flex;flex-direction:column;justify-content:center}
+.char-role{font-family:var(--fu);font-size:.64rem;letter-spacing:.28em;color:var(--ac);text-transform:uppercase;margin-bottom:14px}
+.char-name{font-family:var(--fd);font-size:2.5rem;font-weight:400;letter-spacing:.12em;line-height:1.2;margin-bottom:4px}
+.char-name-en{font-family:var(--fa);font-style:italic;font-size:.92rem;color:var(--wm);letter-spacing:.05em;margin-bottom:4px}
+.char-cv{font-family:var(--fu);font-size:.76rem;letter-spacing:.16em;color:var(--ld);margin-bottom:22px}
+.char-quote{font-family:var(--fa);font-style:italic;font-size:.94rem;color:var(--wm);letter-spacing:.03em;line-height:1.8;padding:14px 0 14px 18px;margin-bottom:20px;border-left:2px solid rgba(209,179,195,.25);position:relative}
+.char-desc{font-size:.94rem;line-height:2.2;color:var(--tm);font-weight:300}
+.char-cg{display:flex;gap:10px;margin-top:auto;padding-top:24px;justify-content:flex-end}
+.cg-thumb{width:140px;height:88px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,rgba(230,242,247,.45),rgba(236,228,243,.3));border:1px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-family:var(--fu);font-size:.54rem;letter-spacing:.12em;color:var(--tl);transition:all .4s;cursor:pointer;overflow:hidden;box-shadow:0 2px 8px rgba(137,194,212,.05)}
+.cg-thumb:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(137,194,212,.12);border-color:var(--ac)}
+
+/* ===== STAFF ===== */
+#staff{background:linear-gradient(180deg,var(--white),var(--sf),var(--white));padding:140px 24px 40px}
+.staff-grid{max-width:700px;margin:0 auto 200px;display:grid;grid-template-columns:1fr;gap:14px}
+.staff-row{display:flex;flex-direction:column;gap:6px;padding:20px 26px;border-radius:10px;background:rgba(255,255,255,.45);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.45);transition:transform .3s,box-shadow .3s}
+.staff-row:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(137,194,212,.06)}
+.staff-role{font-family:var(--fu);font-size:.68rem;letter-spacing:.1em;color:var(--ac);line-height:1.6}
+.staff-name{font-size:1rem;font-weight:400;color:var(--tx)}
+
+/* ===== SPEC ===== */
+#spec{background:var(--white);padding:140px 24px 40px}
+.spec-table{max-width:540px;margin:0 auto 200px;text-align:left}
+.spec-row{display:flex;padding:17px 0;border-bottom:1px solid rgba(137,194,212,.06)}
+.spec-row:first-child{border-top:1px solid rgba(137,194,212,.06)}
+.spec-key{font-family:var(--fu);font-size:.74rem;letter-spacing:.12em;color:var(--ac);min-width:110px;flex-shrink:0}
+.spec-val{font-size:.92rem;color:var(--tm);font-weight:300}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(44,54,64,.25);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-box{background:rgba(255,255,255,.85);backdrop-filter:blur(26px);border:1px solid rgba(255,255,255,.55);border-radius:20px;max-width:600px;width:90%;max-height:76vh;overflow-y:auto;padding:48px 44px;position:relative;transform:translateY(20px) scale(.98);transition:transform .45s cubic-bezier(.22,.61,.36,1);box-shadow:0 24px 64px rgba(44,54,64,.07)}
+.modal-overlay.open .modal-box{transform:none}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--tl);transition:color .3s;font-family:var(--fu)}
+.modal-close:hover{color:var(--tx)}
+.modal-box h2{font-family:var(--fd);font-size:1.4rem;font-weight:300;letter-spacing:.08em;margin-bottom:20px}
+.modal-box h3{font-family:var(--fu);font-size:.82rem;font-weight:500;letter-spacing:.1em;margin:18px 0 8px;color:var(--tx)}
+.modal-box p,.modal-box li{font-size:.88rem;line-height:1.9;color:var(--tm);font-weight:300}
+.modal-box ul{padding-left:18px;margin-bottom:10px}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:100px 24px 100px;background:linear-gradient(180deg,var(--white),var(--sf))}
+.footer-logo{font-family:var(--fd);font-size:1rem;letter-spacing:.2em;color:var(--tl)}
+.footer-line{width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:14px auto}
+footer p{font-family:var(--fu);font-size:.5rem;letter-spacing:.16em;color:var(--tl);opacity:.5}
+
+/* ===== ANIM ===== */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.ripple{position:fixed;pointer-events:none;width:8px;height:8px;border-radius:50%;border:1px solid rgba(137,194,212,.35);z-index:9998;opacity:0;animation:ripO .8s forwards}
+@keyframes ripO{0%{opacity:.25;transform:scale(0)}100%{opacity:0;transform:scale(3)}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1100px){.char-side-nav{right:10px}.char-side-nav a{font-size:.52rem;padding:6px 10px}}
+@media(max-width:900px){
+  #news,#intro,#staff,#spec{padding-left:18px;padding-right:18px}
+  #character{padding:110px 18px 130px}
+  .char-body{flex-direction:column;min-height:auto}
+  .char-art{flex:none;height:420px}
+  .char-art img{padding:16px 32px 0}
+  .char-detail{padding:28px 24px 32px}
+  .char-name{font-size:1.9rem}
+  .char-cg{justify-content:center}
+  .cg-thumb{width:130px;height:80px}
+  .news-item{flex-direction:column;gap:5px}
+  .char-top-nav{gap:3px;padding:9px 12px}
+  .char-top-nav a{padding:6px 14px;font-size:.54rem}
+  .char-side-nav{display:none!important}
+  .bottom-nav{height:50px;gap:2px;padding:0 8px}
+  .bottom-nav a,.bottom-nav button{padding:7px 9px;font-size:.54rem;letter-spacing:.08em}
+  .nav-sep{margin:0 3px}
+  .hero-title-wrap{padding:22px 36px 18px}
+}
+@media(max-width:480px){
+  .bottom-nav a,.bottom-nav button{padding:6px 6px;font-size:.48rem;letter-spacing:.05em}
+  .bn-label{display:none}
+  .char-art{height:360px}
+  .char-art img{padding:12px 20px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-apple">
+    <div class="loader-ring"></div>
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#89c2d4"/>
+          <stop offset="50%" stop-color="#c4b0d8"/>
+          <stop offset="100%" stop-color="#f0c6d9"/>
+        </linearGradient>
+      </defs>
+      <path d="M52 18 C51 12 50 6 49 2" stroke="#8a9dad" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+      <path d="M50 10 C44 2 34 0 34 5 C34 10 42 12 49 9" fill="url(#appleGrad)" opacity=".6">
+        <animateTransform attributeName="transform" type="rotate" values="-3 49 10;5 49 10;-3 49 10" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M50 22 C42 18 28 16 18 26 C6 38 4 58 10 76 C16 94 30 108 42 112 C46 114 48 114 50 112 C52 114 54 114 58 112 C70 108 84 94 90 76 C96 58 94 38 82 26 C72 16 58 18 50 22Z" fill="url(#appleGrad)" opacity=".85"/>
+    </svg>
+    </svg>
+  </div>
+  <p class="loader-text">GrimLily</p>
+  <p class="loader-sub">Loading</p>
+</div>
+
+<div class="top-bar" id="topBar"><a href="#hero" class="top-logo">GrimLily</a></div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="#news">News</a>
+  <a href="#staff">Staff</a>
+  <a href="#spec">Spec</a>
+  <span class="nav-sep"></span>
+  <button id="navGuideBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="bn-label">Guideline</span></button>
+  <span class="nav-sep"></span>
+  <a href="#" id="shareX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" style="width:11px;height:11px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  <a href="#" id="shareLine" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" style="width:11px;height:11px"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596a.629.629 0 01-.199.031c-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+</nav>
+
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-shimmer"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-glow"></div>
+  <div class="sakura" id="sakura"></div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="var(--white)"><path d="M0,40 C240,68 480,14 720,38 C960,62 1200,18 1440,44 L1440,70 L0,70Z" opacity=".4"/><path d="M0,52 C360,24 720,62 1080,34 C1300,20 1400,44 1440,38 L1440,70 L0,70Z"/></svg></div>
+  <div class="hero-bottom">
+    <div class="hero-title-wrap">
+      <h1 class="hero-title">タイトル未定</h1>
+      <p class="hero-sub">GrimLily</p>
+    </div>
+    <p class="hero-tagline">— 今冬〜来春 発売予定 —</p>
+    <div class="hero-divider"></div>
+  </div>
+  <div class="scroll-hint"><span></span></div>
+</section>
+
+<!-- NEWS -->
+<section id="news" style="padding-bottom:280px">
+  <div class="s-wrap">
+    <div class="reveal"><p class="s-label">News</p><h2 class="s-title"><span class="marker">お知らせ</span></h2></div>
+    <div class="news-list reveal rd1">
+      <div class="news-item"><span class="news-date">2026.04.27</span><span class="news-tag">info</span><span class="news-text">公式サイトを公開しました</span></div>
+    </div>
+  </div>
+</section>
+<div class="spacer-lg"></div>
+<div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
+
+
+<!-- STAFF -->
+<section id="staff" style="padding-bottom:280px">
+  <div class="s-wrap">
+    <div class="reveal"><p class="s-label">Staff</p><h2 class="s-title"><span class="marker">制作スタッフ</span></h2></div>
+    <div class="staff-grid reveal rd1">
+      <div class="staff-row"><span class="staff-role">Producer / Director / Character Design & Illustration</span><span class="staff-name">シャルノス・グレナデン（GrimLily）</span></div>
+      <div class="staff-row"><span class="staff-role">Assistant & Music Production</span><span class="staff-name">しあん（GrimLily）</span></div>
+      <div class="staff-row"><span class="staff-role">Background Art</span><span class="staff-name">ソミニカ</span></div>
+      <div class="staff-row"><span class="staff-role">Programming Support</span><span class="staff-name">てさりあ</span></div>
+      <div class="staff-row"><span class="staff-role">Voice Cast（予定）</span><span class="staff-name">夜鳴かすか / 碧縁 / ロウィナ・トリウィア</span></div>
+    </div>
+  </div>
+</section>
+<div class="spacer-lg"></div>
+<div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
+
+<!-- SPEC -->
+<section id="spec" style="padding-bottom:280px">
+  <div class="s-wrap">
+    <div class="reveal"><p class="s-label">Spec</p><h2 class="s-title"><span class="marker">製品情報</span></h2></div>
+    <div class="spec-table reveal rd1">
+      <div class="spec-row"><span class="spec-key">Title</span><span class="spec-val">タイトル未定</span></div>
+      <div class="spec-row"><span class="spec-key">Genre</span><span class="spec-val">百合風味アドベンチャー</span></div>
+      <div class="spec-row"><span class="spec-key">Platform</span><span class="spec-val">PC</span></div>
+      <div class="spec-row"><span class="spec-key">Voice</span><span class="spec-val">フルボイス</span></div>
+      <div class="spec-row"><span class="spec-key">Price</span><span class="spec-val">¥1,200前後（予定）</span></div>
+      <div class="spec-row"><span class="spec-key">Release</span><span class="spec-val">今冬〜来春</span></div>
+      <div class="spec-row"><span class="spec-key">Circle</span><span class="spec-val">GrimLily</span></div>
+    </div>
+  </div>
+</section>
+<div class="spacer-lg"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOv">
+  <div class="modal-box">
+    <button class="modal-close" id="closeModal">✕</button>
+    <h2>配信・実況ガイドライン</h2>
+    <p>本作「タイトル未定」の実況・配信に関する規約です。</p>
+    <h3>許可される配信</h3>
+    <ul><li>個人・法人を問わず、動画投稿・生配信が可能です</li><li>収益化（広告収入等）を伴う配信も許可いたします</li><li>配信範囲の制限はありません（最後までプレイ可能）</li></ul>
+    <h3>お願い事項</h3>
+    <ul><li>配信タイトルまたは概要欄にゲーム名とサークル名「GrimLily」をご記載ください</li><li>ゲーム素材の単体での二次配布はご遠慮ください</li><li>過度なネタバレを含むサムネイルはお控えください</li></ul>
+    <h3>禁止事項</h3>
+    <ul><li>ゲーム内容を差別的・誹謗中傷的な文脈で使用すること</li><li>公序良俗に反する形での使用</li><li>自作発言</li></ul>
+    <p style="margin-top:16px">本規約は予告なく変更される場合があります。</p>
+  </div>
+</div>
+
+<footer><div class="footer-logo">GrimLily</div><div class="footer-line"></div><p>&copy; GrimLily. All Rights Reserved.</p></footer>
+
+<script>
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),800));
+const tb=document.getElementById('topBar');
+window.addEventListener('scroll',()=>tb.classList.toggle('scrolled',scrollY>80),{passive:true});
+const secs=document.querySelectorAll('section[id]');
+const bna=document.querySelectorAll('.bottom-nav a[href^="#"]');
+secs.forEach(s=>new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)bna.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))})},{threshold:.12,rootMargin:'-8% 0px -55% 0px'}).observe(s));
+const mo=document.getElementById('modalOv');
+document.getElementById('navGuideBtn').addEventListener('click',()=>mo.classList.add('open'));
+document.getElementById('closeModal').addEventListener('click',()=>mo.classList.remove('open'));
+mo.addEventListener('click',e=>{if(e.target===mo)mo.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')mo.classList.remove('open')});
+document.querySelectorAll('.reveal').forEach(r=>new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.06}).observe(r));
+(function(){const c=document.getElementById('sakura');for(let i=0;i<12;i++){const p=document.createElement('div');p.className='petal';const s=Math.random()*11+5;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;--po:${Math.random()*.14+.06};animation-duration:${Math.random()*8+11}s;animation-delay:${Math.random()*10+4}s;`;c.appendChild(p)}})();
+(function(){const c=document.getElementById('heroParticles');for(let i=0;i<18;i++){const p=document.createElement('div');p.className='h-particle';const s=Math.random()*2+1.5;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*8+10}s;animation-delay:${Math.random()*12}s;`;c.appendChild(p)}})();
+const pu=encodeURIComponent(location.href),pt=encodeURIComponent('GrimLily - タイトル未定 公式サイト');
+document.getElementById('shareX').href='https://twitter.com/intent/tweet?url='+pu+'&text='+pt;
+document.getElementById('shareLine').href='https://social-plugins.line.me/lineit/share?url='+pu;
+if(matchMedia('(pointer:fine)').matches){let t=0;document.addEventListener('mousemove',e=>{const n=Date.now();if(n-t<160)return;t=n;const r=document.createElement('div');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),800)})}
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(!h||h==='#')return;const t=document.querySelector(h);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}}));
+</script>
+</body>
+</html>
