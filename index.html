@@ -1,328 +1,761 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GrimLily | タイトル未定 公式サイト</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500&family=Quicksand:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --white:#fefefe;--off:#faf9fc;
-  --sf:#e6f2f7;--sl:#d0eaf4;--sm:#b4dbe8;--sd:#89c2d4;
-  --lv:#ece4f3;--ll:#f5f0fa;--lm:#d8cce6;--ld:#c4b0d8;
-  --rs:#f0c6d9;--rl:#f8e6ef;--rp:#fdf5f9;
-  --tx:#2c3640;--tm:#5a6d7a;--tl:#8a9dad;
-  --ac:#9dc0cc;--wm:#d1b3c3;
-  --fd:'Cormorant Garamond',serif;--fb:'Noto Serif JP',serif;
-  --fu:'Quicksand',sans-serif;--fa:'Playfair Display',serif;
-}
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hidden;padding-bottom:64px}
-::selection{background:var(--sl);color:var(--tx)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharnoth Grenadine Official</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+Display&family=Cinzel:wght@400;700;900&family=Kaisei+Decol:wght@400;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
-/* ===== LOADER — APPLE ===== */
-#loader{position:fixed;inset:0;z-index:9999;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity 1s,visibility 1s}
-#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.loader-apple{position:relative;width:56px;height:56px;animation:appleBreath 3s ease-in-out infinite}
-.loader-apple svg{width:100%;height:100%;filter:drop-shadow(0 2px 12px rgba(209,179,195,.25))}
-.loader-ring{position:absolute;inset:-12px;border-radius:50%;border:1px solid transparent;border-top-color:var(--rs);animation:loaderSpin 2.4s linear infinite;opacity:.3}
-@keyframes appleBreath{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.05);opacity:1}}
-@keyframes loaderSpin{to{transform:rotate(360deg)}}
-.loader-text{font-family:var(--fd);font-size:1.15rem;letter-spacing:.28em;color:var(--tm);font-weight:300;opacity:0;animation:fadeIn 1s .3s forwards}
-.loader-sub{font-family:var(--fu);font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--tl);opacity:0;animation:fadeIn 1s .6s forwards;margin-top:-20px}
-
-/* ===== TOP LOGO ===== */
-.top-bar{position:fixed;top:0;left:0;right:0;z-index:99;padding:22px 40px;display:flex;justify-content:center;transition:all .6s}
-.top-bar.scrolled{padding:14px 40px;background:rgba(254,254,252,.5);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.35)}
-.top-logo{font-family:var(--fd);font-size:1.2rem;font-weight:300;letter-spacing:.2em;color:rgba(255,255,255,.85);text-decoration:none;transition:color .6s;opacity:0;animation:fadeIn .8s .4s forwards}
-.top-bar.scrolled .top-logo{color:var(--tm)}
-
-/* ===== BOTTOM NAV ===== */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 20px;height:62px;
-  background:rgba(250,249,252,.4);backdrop-filter:blur(32px) saturate(1.6);-webkit-backdrop-filter:blur(32px) saturate(1.6);
-  border-top:1px solid rgba(255,255,255,.5);box-shadow:0 -2px 20px rgba(137,194,212,.05);
-  transform:translateY(100%);animation:slideUp .5s 1s forwards}
-@keyframes slideUp{to{transform:none}}
-.bottom-nav a,.bottom-nav button{font-family:var(--fu);font-size:.9rem;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--tl);padding:10px 18px;border-radius:22px;background:transparent;border:none;cursor:pointer;transition:all .3s;white-space:nowrap;display:flex;align-items:center;gap:4px;line-height:1}
-.bottom-nav a:hover,.bottom-nav button:hover{background:rgba(236,228,243,.35);color:var(--tm)}
-.bottom-nav a.active{background:rgba(137,194,212,.12);color:var(--tx)}
-.nav-sep{width:1px;height:16px;background:linear-gradient(180deg,transparent,var(--lm),transparent);flex-shrink:0;margin:0 5px;opacity:.35}
-.bottom-nav svg{width:16px;height:16px;flex-shrink:0;opacity:.65}
-
-/* ===== HERO ===== */
-#hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
-.hero-bg{position:absolute;inset:-5%;background-image:url('https://sharnoth0.github.io/images/告知イラストラフイメージ.png');background-size:cover;background-position:center 12%;animation:heroB 28s ease-in-out infinite alternate}
-@keyframes heroB{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.06) translate(-0.5%,-0.3%)}100%{transform:scale(1.1) translate(0.3%,-0.5%)}}
-.hero-fade{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(44,54,64,.03) 0%,transparent 20%,transparent 40%,rgba(250,249,252,.2) 55%,rgba(250,249,252,.65) 72%,rgba(254,254,254,.92) 84%,var(--white) 94%);}
-.hero-vignette{position:absolute;inset:0;box-shadow:inset 0 0 200px rgba(44,54,64,.05);pointer-events:none}
-.hero-shimmer{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-.hero-shimmer::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg at 50% 50%,transparent 0%,rgba(255,255,255,.04) 10%,transparent 20%,rgba(240,198,217,.03) 30%,transparent 40%,rgba(157,192,204,.03) 50%,transparent 60%);animation:shimmerSpin 30s linear infinite}
-@keyframes shimmerSpin{to{transform:rotate(360deg)}}
-.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-.h-particle{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);animation:hFloat linear infinite}
-@keyframes hFloat{0%{transform:translateY(100vh) scale(0);opacity:0}20%{opacity:1}80%{opacity:.6}100%{transform:translateY(-20vh) scale(1.2);opacity:0}}
-.sakura{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2;-webkit-mask-image:linear-gradient(180deg,transparent 0%,black 12%);mask-image:linear-gradient(180deg,transparent 0%,black 12%)}
-.petal{position:absolute;background:var(--rs);border-radius:50% 0 50% 50%;animation:pDrift linear infinite}
-@keyframes pDrift{
-  0%{transform:translateY(-150px) rotate(0) translateX(0);opacity:0}
-  20%{opacity:var(--po,.16)}
-  82%{opacity:var(--po,.16)}
-  100%{transform:translateY(110vh) rotate(480deg) translateX(60px);opacity:0}
-}
-.hero-glow{position:absolute;top:-8%;left:28%;width:420px;height:420px;pointer-events:none;z-index:1;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(255,255,255,.1),transparent 65%);animation:gP 10s ease-in-out infinite alternate}
-@keyframes gP{0%{opacity:.3;transform:scale(1)}100%{opacity:.55;transform:scale(1.1)}}
-.hero-wave{position:absolute;bottom:-1px;left:0;right:0;z-index:3;pointer-events:none;line-height:0}
-.hero-wave svg{display:block;width:100%}
-.hero-bottom{position:relative;z-index:4;text-align:center;padding:0 24px 52px;opacity:0;animation:fadeUp 1.2s .5s forwards}
-.hero-title-wrap{display:inline-block;padding:28px 56px 24px;border-radius:16px;background:rgba(254,254,254,.35);backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);border:1px solid rgba(255,255,255,.4)}
-.hero-title{font-family:var(--fd);font-size:clamp(2rem,5.5vw,4rem);font-weight:300;letter-spacing:.18em;color:var(--tx)}
-.hero-sub{font-family:var(--fu);font-size:.72rem;letter-spacing:.38em;color:var(--tm);text-transform:uppercase;margin-top:8px}
-.hero-tagline{font-family:var(--fu);font-style:normal;font-size:.72rem;color:var(--tm);margin-top:18px;letter-spacing:.22em;opacity:0;animation:fadeIn 1s 1.5s forwards}
-.hero-divider{width:44px;height:1px;margin:18px auto 0;background:linear-gradient(90deg,transparent,var(--ac),var(--ld),transparent);opacity:0;animation:fadeIn .8s 1.3s forwards}
-.scroll-hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:4;opacity:0;animation:fadeIn 1s 2.2s forwards}
-.scroll-hint span{display:block;width:1px;height:22px;background:linear-gradient(to bottom,var(--tl),transparent);animation:sP 2.4s ease-in-out infinite}
-@keyframes sP{0%,100%{opacity:.1;transform:scaleY(.4)}50%{opacity:.35;transform:scaleY(1)}}
-.cien-banner{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:98;writing-mode:vertical-rl;text-decoration:none;font-family:var(--fu);font-size:.78rem;letter-spacing:.22em;color:var(--tm);padding:24px 14px;background:rgba(250,249,252,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.45);border-right:none;border-radius:12px 0 0 12px;transition:all .3s;opacity:0;animation:fadeIn .8s 2s forwards}
-.cien-banner:hover{background:rgba(236,228,243,.45);color:var(--tx);padding-right:18px}
-.cien-banner span{font-size:.6rem;color:var(--ac);display:block;margin-top:10px}
-
-/* ===== COMMON ===== */
-.s-label{font-family:var(--fu);font-size:.54rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
-.s-title{font-family:var(--fd);font-size:clamp(1.45rem,3vw,2.3rem);font-weight:300;letter-spacing:.1em;margin-bottom:42px;display:inline-block}
-.s-title .marker{background:linear-gradient(transparent 58%,rgba(209,179,195,.22) 58%,rgba(157,192,204,.18) 100%);padding:0 6px;border-radius:2px}
-.s-sub{font-family:var(--fa);font-style:italic;font-size:.9rem;color:var(--wm);letter-spacing:.04em;margin-bottom:48px}
-.s-wrap{max-width:920px;margin:0 auto;text-align:center}
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.22,.61,.36,1)}
-.reveal.visible{opacity:1;transform:none}
-.rd1{transition-delay:.1s}.rd2{transition-delay:.22s}
-
-/* ===== SPACER ===== */
-.spacer-lg{height:120px;content:'';display:block}
-.spacer-md{height:60px}
-
-/* ===== SECTION DIVIDER ===== */
-.sec-divider{display:flex;align-items:center;justify-content:center;padding:10px 0;gap:14px}
-.sec-divider .dl{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--lm))}
-.sec-divider .dl:last-child{background:linear-gradient(90deg,var(--lm),transparent)}
-.sec-divider .dd{width:4px;height:4px;background:var(--wm);border-radius:50%;opacity:.3}
-
-/* ===== NEWS ===== */
-#news{background:var(--white);padding:140px 24px 80px}
-.news-list{max-width:660px;margin:0 auto;text-align:left;padding-left:32px}
-.news-item{padding:20px 0;border-bottom:1px solid rgba(137,194,212,.08);display:flex;gap:18px;align-items:baseline}
-.news-item:first-child{border-top:1px solid rgba(137,194,212,.08)}
-.news-date{font-family:var(--fu);font-size:.74rem;letter-spacing:.1em;color:var(--ac);flex-shrink:0;min-width:92px}
-.news-tag{font-family:var(--fu);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:14px;background:var(--sf);color:var(--sd);flex-shrink:0}
-.news-tag.update{background:var(--ll);color:var(--ld)}
-.news-text{font-size:.94rem;color:var(--tm);font-weight:300;line-height:1.8}
-
-
-/* ===== STAFF ===== */
-#staff{background:linear-gradient(180deg,var(--white),var(--sf),var(--white));padding:140px 24px 80px}
-.staff-grid{max-width:700px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:14px}
-.staff-row{display:flex;flex-direction:column;gap:6px;padding:20px 26px;border-radius:10px;background:rgba(255,255,255,.45);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.45);transition:transform .3s,box-shadow .3s}
-.staff-row:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(137,194,212,.06)}
-.staff-role{font-family:var(--fu);font-size:.68rem;letter-spacing:.1em;color:var(--ac);line-height:1.6}
-.staff-name{font-size:1rem;font-weight:400;color:var(--tx)}
-
-/* ===== SPEC ===== */
-#spec{background:var(--white);padding:140px 24px 80px}
-.spec-table{max-width:540px;margin:0 auto;text-align:left}
-.spec-row{display:flex;padding:17px 0;border-bottom:1px solid rgba(137,194,212,.06)}
-.spec-row:first-child{border-top:1px solid rgba(137,194,212,.06)}
-.spec-key{font-family:var(--fu);font-size:.74rem;letter-spacing:.12em;color:var(--ac);min-width:110px;flex-shrink:0}
-.spec-val{font-size:.92rem;color:var(--tm);font-weight:300}
-
-/* ===== MODAL ===== */
-.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(44,54,64,.25);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.modal-overlay.open{opacity:1;visibility:visible}
-.modal-box{background:rgba(255,255,255,.85);backdrop-filter:blur(26px);border:1px solid rgba(255,255,255,.55);border-radius:20px;max-width:600px;width:90%;max-height:76vh;overflow-y:auto;padding:48px 44px;position:relative;transform:translateY(20px) scale(.98);transition:transform .45s cubic-bezier(.22,.61,.36,1);box-shadow:0 24px 64px rgba(44,54,64,.07)}
-.modal-overlay.open .modal-box{transform:none}
-.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--tl);transition:color .3s;font-family:var(--fu)}
-.modal-close:hover{color:var(--tx)}
-.modal-box h2{font-family:var(--fd);font-size:1.4rem;font-weight:300;letter-spacing:.08em;margin-bottom:20px}
-.modal-box h3{font-family:var(--fu);font-size:.82rem;font-weight:500;letter-spacing:.1em;margin:18px 0 8px;color:var(--tx)}
-.modal-box p,.modal-box li{font-size:.88rem;line-height:1.9;color:var(--tm);font-weight:300}
-.modal-box ul{padding-left:18px;margin-bottom:10px}
-
-/* ===== FOOTER ===== */
-footer{text-align:center;padding:80px 24px 40px;background:linear-gradient(180deg,var(--white),var(--sf))}
-.footer-logo{font-family:var(--fd);font-size:1.4rem;letter-spacing:.25em;color:var(--tl)}
-.footer-line{width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:14px auto}
-footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(--tl);opacity:.5}
-
-/* ===== ANIM ===== */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.ripple{position:fixed;pointer-events:none;width:8px;height:8px;border-radius:50%;border:1px solid rgba(137,194,212,.35);z-index:9998;opacity:0;animation:ripO .8s forwards}
-@keyframes ripO{0%{opacity:.25;transform:scale(0)}100%{opacity:0;transform:scale(3)}}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:900px){
-  #news,#staff,#spec{padding-left:18px;padding-right:18px}
-  .news-item{flex-direction:column;gap:5px}
-  .bottom-nav{height:56px;gap:3px;padding:0 8px}
-  .bottom-nav a,.bottom-nav button{padding:8px 10px;font-size:.78rem;letter-spacing:.08em}
-  .nav-sep{margin:0 3px}
-  .hero-title-wrap{padding:22px 36px 18px}
-  .cien-banner{font-size:.68rem;padding:18px 11px}
-}
-@media(max-width:480px){
-  .bottom-nav a,.bottom-nav button{padding:6px 7px;font-size:.68rem;letter-spacing:.05em}
-  .bn-label{display:none}
-  .cien-banner{font-size:.6rem;padding:14px 9px}
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- ══════════════════════════════════════════════════
+         #loader — 這い寄る混沌 / Nyarlathotep
+         ══════════════════════════════════════════════════ -->
+    <div id="loader">
+        <!-- ウジャトの目 -->
+        <div class="loader-eye">𓂀&nbsp;&nbsp;𓂀</div>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="loader-apple">
-    <div class="loader-ring"></div>
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#89c2d4"/>
-          <stop offset="50%" stop-color="#c4b0d8"/>
-          <stop offset="100%" stop-color="#f0c6d9"/>
-        </linearGradient>
-      </defs>
-      <path d="M50 12 Q49 7 48.5 3" stroke="#8a9dad" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".45"/>
-      <path d="M49 6 C45 1 37 0 37 4 C37 7.5 43 8 48 5.5" fill="url(#appleGrad)" opacity=".6">
-        <animateTransform attributeName="transform" type="rotate" values="-3 48 6;5 48 6;-3 48 6" dur="3s" repeatCount="indefinite"/>
-      </path>
-      <path d="M50 18 C46 15 38 13 28 16 C18 19 10 30 8 44 C6 58 10 72 20 82 C28 90 38 94 44 96 Q48 97 50 93 Q52 97 56 96 C62 94 72 90 80 82 C90 72 94 58 92 44 C90 30 82 19 72 16 C62 13 54 15 50 18Z" fill="url(#appleGrad)" opacity=".85"/>
-    </svg>
-  </div>
-  <p class="loader-text">GrimLily</p>
-  <p class="loader-sub">Loading</p>
-</div>
+        <!-- 中央ステージ -->
+        <div class="loader-stage">
+            <div class="loader-outer-ring"></div>
+            <div class="loader-glyph-ring" id="glyphRing"></div>
+            <div class="loader-mid-ring"></div>
+            <div class="loader-inner-ring"></div>
 
-<div class="top-bar" id="topBar"><a href="#hero" class="top-logo">GrimLily</a></div>
+            <div class="loader-star-wrap">
+                <!-- 四芒星 メイン（クリムゾン） -->
+                <svg class="loader-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,2 C50,2 52,28 54,36 C58,44 74,44 98,50 C74,56 58,56 54,64 C52,72 50,98 50,98 C50,98 48,72 46,64 C42,56 26,56 2,50 C26,44 42,44 46,36 C48,28 50,2 50,2 Z"
+                        fill="url(#loaderStarGrad)" opacity="0.95"/>
+                    <path d="M50,18 C50,18 51,35 52,40 C54,46 60,48 75,50 C60,52 54,54 52,60 C51,65 50,82 50,82 C50,82 49,65 48,60 C46,54 40,52 25,50 C40,48 46,46 48,40 C49,35 50,18 50,18 Z"
+                        fill="rgba(255,255,255,0.07)"/>
+                    <defs>
+                        <radialGradient id="loaderStarGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%"   stop-color="rgba(255,255,255,0.9)"/>
+                            <stop offset="30%"  stop-color="rgba(219,15,77,0.95)"/>
+                            <stop offset="70%"  stop-color="rgba(160,5,40,0.8)"/>
+                            <stop offset="100%" stop-color="rgba(80,0,15,0.4)"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
 
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a href="#news">News</a>
-  <a href="#staff">Staff</a>
-  <a href="#spec">Spec</a>
-  <span class="nav-sep"></span>
-  <button id="navGuideBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="bn-label">Guideline</span></button>
-  <span class="nav-sep"></span>
-  <a href="#" id="shareX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-  <a href="#" id="shareLine" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596a.629.629 0 01-.199.031c-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
-</nav>
+                <!-- 四芒星 サブ（ゴールド） -->
+                <svg class="loader-star-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,5 C50,5 51.8,29 53.5,37 C57,44.5 72,45 95,50 C72,55 57,55.5 53.5,63 C51.8,71 50,95 50,95 C50,95 48.2,71 46.5,63 C43,55.5 28,55 5,50 C28,45 43,44.5 46.5,37 C48.2,29 50,5 50,5 Z"
+                        fill="url(#loaderStarGradGold)" opacity="0.85"/>
+                    <defs>
+                        <radialGradient id="loaderStarGradGold" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%"   stop-color="rgba(255,240,180,0.9)"/>
+                            <stop offset="40%"  stop-color="rgba(209,173,63,0.8)"/>
+                            <stop offset="100%" stop-color="rgba(120,80,10,0.2)"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
 
+                <div class="loader-core"></div>
+            </div>
+        </div><!-- /.loader-stage -->
 
-<a href="https://ci-en.net/creator/35826" target="_blank" rel="noopener" class="cien-banner">制作日記 公開中<span>Ci-en</span></a>
+        <!-- タイトル -->
+        <div class="loader-text-area">
+            <div class="loader-title">Sharnoth Grenadine</div>
+        </div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-fade"></div>
-  <div class="hero-vignette"></div>
-  <div class="hero-shimmer"></div>
-  <div class="hero-particles" id="heroParticles"></div>
-  <div class="hero-glow"></div>
-  <div class="sakura" id="sakura"></div>
-  <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="var(--white)"><path d="M0,40 C240,68 480,14 720,38 C960,62 1200,18 1440,44 L1440,70 L0,70Z" opacity=".4"/><path d="M0,52 C360,24 720,62 1080,34 C1300,20 1400,44 1440,38 L1440,70 L0,70Z"/></svg></div>
-  <div class="hero-bottom">
-    <div class="hero-title-wrap">
-      <h1 class="hero-title">タイトル未定</h1>
-      <p class="hero-sub">GrimLily</p>
+        <!-- プログレスバー -->
+        <div class="loader-progress-wrap">
+            <div class="loader-progress-track">
+                <div class="loader-progress-fill"></div>
+            </div>
+        </div>
     </div>
-    <p class="hero-tagline">— 今冬〜来春 発売予定 —</p>
-    <div class="hero-divider"></div>
-  </div>
-  <div class="scroll-hint"><span></span></div>
-</section>
+    <!-- /#loader -->
 
-<!-- NEWS -->
-<section id="news">
-  <div class="s-wrap">
-    <div class="reveal"><p class="s-label">News</p><h2 class="s-title"><span class="marker">お知らせ</span></h2></div>
-    <div class="news-list reveal rd1">
-      <div class="news-item"><span class="news-date">2026.04.27</span><span class="news-tag">info</span><span class="news-text">公式サイトを公開しました</span></div>
+    <div class="base-bg"></div>
+
+    <div id="cursor-wrap">
+        <div class="cur-aura"></div>
+        <div class="cur-ring"></div>
+        <div class="cur-core"></div>
+        <div class="cur-heart">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
     </div>
-  </div>
-</section>
-<div class="spacer-lg"></div>
-<div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
 
-<!-- STAFF -->
-<section id="staff">
-  <div class="s-wrap">
-    <div class="reveal"><p class="s-label">Staff</p><h2 class="s-title"><span class="marker">制作スタッフ</span></h2></div>
-    <div class="staff-grid reveal rd1">
-      <div class="staff-row"><span class="staff-role">Producer / Director / Character Design & Illustration</span><span class="staff-name">シャルノス・グレナデン（GrimLily）</span></div>
-      <div class="staff-row"><span class="staff-role">Assistant & Music Production</span><span class="staff-name">しあん（GrimLily）</span></div>
-      <div class="staff-row"><span class="staff-role">Background Art</span><span class="staff-name">ソミニカ</span></div>
-      <div class="staff-row"><span class="staff-role">Programming Support</span><span class="staff-name">てさりあ</span></div>
-      <div class="staff-row"><span class="staff-role">Voice Cast（予定）</span><span class="staff-name">夜鳴かすか / 碧縁 / ロウィナ・トリウィア</span></div>
+    <div class="stars-layer"></div>
+
+    <video autoplay loop muted playsinline crossorigin="anonymous" class="bg-video" id="bgVideo">
+        <source src="images/45503_1280x720.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <section id="home" class="hero">
+        <div class="hero-ritual-circle">
+            <div class="ritual-ring ritual-ring-1"></div>
+            <div class="ritual-ring ritual-ring-2"></div>
+            <div class="ritual-ring ritual-ring-3"></div>
+        </div>
+        <div class="hero-star-bg">
+            <svg viewBox="0 0 100 100" fill="white" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                <polygon points="50,5 60,45 95,50 60,55 50,95 40,55 5,50 40,45"/>
+                <polygon points="50,20 55,45 80,50 55,55 50,80 45,55 20,50 45,45" opacity="0.5"/>
+            </svg>
+        </div>
+        <div class="hero-text-box fade-up">
+            <div class="hero-incantation">Sharnoth Grenadine Official Site</div>
+            <h2 class="catchphrase">その影は、<br><span class="heal">癒やし</span>か<span class="chaos">混沌</span>か。</h2>
+        </div>
+        <div class="scroll-down fade-up delay-2">
+            <span>Scroll</span>
+            <div class="scroll-diamond"></div>
+        </div>
+        <!-- ── クラウドファンディングバナー ── -->
+        <div class="campfire-banner fade-up delay-2">
+            <a href="https://camp-fire.jp/projects/940089" target="_blank" rel="noopener noreferrer" class="campfire-banner-inner">
+                <div class="campfire-deco-line left"></div>
+                <div class="campfire-deco-line right"></div>
+                <span class="campfire-badge">Crowdfunding</span>
+                <p class="campfire-text">落ち着く声で究極の癒やしを。<br>シャルノスASMRプロジェクト✧</p>
+                <span class="campfire-period">2026 / 4 / 27 &ensp;—&ensp; 2026 / 7 / 15</span>
+                <span class="campfire-enter">CAMPFIREで支援する</span>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-wrapper fade-up"><h2 class="section-title">Profile</h2></div>
+        <div class="section-divider fade-up delay-1"></div>
+        <div class="profile-layout fade-up delay-2" id="profile">
+            <div class="corner-star tl"><svg viewBox="0 0 20 20"><polygon points="10,1 12,8 19,10 12,12 10,19 8,12 1,10 8,8"/></svg></div>
+            <div class="corner-star tr"><svg viewBox="0 0 20 20"><polygon points="10,1 12,8 19,10 12,12 10,19 8,12 1,10 8,8"/></svg></div>
+            <div class="corner-star bl"><svg viewBox="0 0 20 20"><polygon points="10,1 12,8 19,10 12,12 10,19 8,12 1,10 8,8"/></svg></div>
+            <div class="corner-star br"><svg viewBox="0 0 20 20"><polygon points="10,1 12,8 19,10 12,12 10,19 8,12 1,10 8,8"/></svg></div>
+            <div class="profile-visual-area">
+                <div class="visual-main glitch-wrapper">
+                    <div id="profile-img-box" class="full-body-img-box"></div>
+                    <div class="costume-indicators">
+                        <button class="indicator-wrap active" data-costume="default"><div class="indicator-circle"></div><span>Default</span></button>
+                        <button class="indicator-wrap" data-costume="new1"><div class="indicator-circle"></div><span>New</span></button>
+                    </div>
+                </div>
+                <div class="channel-links">
+                    <a href="https://www.youtube.com/@GrenadineSyrup_" target="_blank" rel="noopener noreferrer" class="ch-link youtube">
+                        <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>YouTube
+                    </a>
+                    <a href="https://www.twitch.tv/grenadinesyrup" target="_blank" rel="noopener noreferrer" class="ch-link twitch">
+                        <svg viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>Twitch
+                    </a>
+                </div>
+            </div>
+            <div class="profile-text-area">
+                <div class="profile-name-box">
+                    <h1 class="profile-name-en">Sharnoth Grenadine</h1>
+                    <span class="profile-name-ja">シャルノス グレナデン</span>
+                </div>
+                <div class="profile-quote-sub-container">
+                    <div class="profile-quote-sub">「皆さんが安心して暮らせる"ドリームランド"を作りましょう♪」</div>
+                </div>
+                <div class="profile-tabs">
+                    <button class="tab-btn active" data-target="tab-intro"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profile</button>
+                    <button class="tab-btn" data-target="tab-likes"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Like & Skill</button>
+                    <button class="tab-btn" data-target="tab-wishlist"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.65-.5-.65C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4V8h16v11z"/></svg>Present</button>
+                    <button class="tab-btn" data-target="tab-special-thanks"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>Special Thanks</button>
+                </div>
+                <div id="tab-intro" class="tab-content active">
+                    <div class="profile-basic-info">
+                        <div class="info-item"><span class="info-label">ファンネーム：</span><span class="info-value">深徒</span></div>
+                        <div class="info-item"><span class="info-label">推しマーク：</span><span class="info-value">🖤🕳</span></div>
+                    </div>
+                    <p>長きに渡り封印されていた邪神。<br>封印を解かれたのはいいものの、<br>記憶も曖昧でうまく力が出せない状態に陥っている。</p>
+                    <p>なんか大邪神っぽいという理由で、夫と妻を10人くらい迎え入れる予定。<br>（ファーストダーリンは決まったので、セカンドダーリンとファーストハニーを募集中）</p>
+                    <p>信仰（深徒）を集め、理想の"ドリームランド"を作ろうとしている。</p>
+                    <p>いわゆるセルフ受肉で、特技は姿を変化させること。<br>（力を使うので乱用は出来ない）</p>
+                    <div class="youtube-wrap" style="margin: 30px 0 10px 0; max-width: 320px; border: 1px solid rgba(209,173,63,0.3);">
+                        <iframe src="https://www.youtube.com/embed/3KAkgTgFG9o" title="YouTube" allowfullscreen></iframe>
+                    </div>
+                    <div class="stream-tags-section">
+                        <strong style="color:var(--gold);">Stream Tags:</strong>
+                        <div class="stream-tags">
+                            <span class="stream-tag" data-desc="総合タグ">#シャルノスグレナデン</span>
+                            <span class="stream-tag" id="art-trigger" data-desc="ファンアートタグ。ルールなど詳細はクリック！">#グレフィックス<span class="click-hint">Click</span></span>
+                            <span class="stream-tag" id="kuenaden-trigger" data-desc="飯テロ用。毎週月曜日に配信で紹介中♡詳細はクリック！">#食えナデン<span class="click-hint">Click</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-likes" class="tab-content">
+                    <div class="profile-data-grid">
+                        <div class="data-section">
+                            <strong style="color:var(--gold);">Likes:</strong>
+                            <div class="likes-tags"><span>料理</span><span>ネギトロ</span><span>からあげ</span><span>お寿司</span><span>いなり寿司</span><span>鴨</span><span>アーモンド</span><span>杏仁</span><span>リンゴ</span><span>カフェオレ</span><span>牧場物語</span><span>テイルズ</span><span>良い声</span><span>メカクレ</span><span>深徒♡</span></div>
+                        </div>
+                        <div class="data-section">
+                            <strong style="color:var(--gold);">Skill:</strong>
+                            <div class="likes-tags"><span>Illustration</span><span>Live2D</span><span>MV制作</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-wishlist" class="tab-content">
+                    <p style="margin-bottom:25px;color:rgba(255,255,255,0.7);border-left:4px solid var(--crimson);padding-left:15px;">皆さんだと思って大事にいたします</p>
+                    <div class="wish-grid">
+                        <a href="https://gi-pt.com/main/wishlist/fan-view/3a111828-ba2d-1c72-1314-9f182227a6e2" target="_blank" rel="noopener noreferrer" class="wish-item">
+                            <span class="service-name"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Gipt</span>
+                            <span class="service-desc">生贄がほしいです⋯⋯</span>
+                        </a>
+                        <a href="https://giftee.com/u/grenadine" target="_blank" rel="noopener noreferrer" class="wish-item">
+                            <span class="service-name"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h14v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>Giftee</span>
+                            <span class="service-desc">たまにちょっと贅沢させて？</span>
+                        </a>
+                    </div>
+                    <p style="margin-top:35px; margin-bottom:15px;color:rgba(255,255,255,0.7);border-left:4px solid var(--crimson);padding-left:15px;">お手紙やGIPTで送れないものなどはこちら</p>
+                    <div class="wish-grid">
+                        <a href="https://ouen55.com/grenadinesyrup_/" target="_blank" rel="noopener noreferrer" class="wish-item">
+                            <span class="service-name"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.65-.5-.65C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4V8h16v11z"/></svg>オーエン配送</span>
+                        </a>
+                    </div>
+                </div>
+                <div id="tab-special-thanks" class="tab-content">
+                    <p style="margin-bottom:20px;color:rgba(255,255,255,0.7);border-left:4px solid var(--gold);padding-left:15px;line-height:2.0;">活動を支えてくださっている皆さまへの感謝を込めて。</p>
+                    <div class="thanks-section-title">✦ Special Thanks</div>
+                    <div class="special-thanks-grid">
+                        <a href="https://x.com/monimoni_itame" target="_blank" rel="noopener noreferrer" class="thanks-card" style="text-decoration:none;">
+                            <span class="thanks-role">Logo Design</span>
+                            <span class="thanks-name">もにいため 様</span>
+                            <span class="thanks-note">ロゴデザイン</span>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCIjh3v-zE37uqsKYd4htd6g" target="_blank" rel="noopener noreferrer" class="thanks-card" style="text-decoration:none;">
+                            <span class="thanks-role">OP/ED Music</span>
+                            <span class="thanks-name">しあん 様</span>
+                            <span class="thanks-note">OP/ED Music制作</span>
+                        </a>
+                    </div>
+                    <div class="thanks-section-title">✦ Special Support</div>
+                    <div class="special-thanks-grid">
+                        <div class="thanks-card">
+                            <span class="thanks-role">深徒の皆さん</span>
+                            <span class="thanks-name">All Followers</span>
+                            <span class="thanks-note">いつもありがとう♡</span>
+                        </div>
+                    </div>
+                    <div class="thanks-section-title" style="margin-top:36px;">✦ Crowdfunding Supporters</div>
+                    <div style="text-align:center;margin-top:16px;">
+                        <p style="color:rgba(200,180,140,0.7);font-size:0.9rem;line-height:2.0;margin-bottom:18px;">シャルノスASMRプロジェクトを支援してくださった皆さま。<br>深徒の皆さんの力があってこそです。本当にありがとう。</p>
+                        <button class="cf-supporters-btn" id="open-supporters">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            支援者一覧を見る
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works">
+        <div class="section-wrapper fade-up"><h2 class="section-title">Works</h2></div>
+        <div class="section-divider fade-up delay-1"></div>
+        <div class="works-section-wrap fade-up delay-2">
+
+            <!-- VTuber企業案件 -->
+            <div class="works-category">
+                <div class="works-category-header">
+                    <span class="works-cat-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    </span>
+                    <div>
+                        <div class="works-cat-label">VTuber</div>
+                        <div class="works-cat-sub">企業案件のみ記載</div>
+                    </div>
+                </div>
+                <div class="works-list" id="vtuber-works-preview">
+                    <p style="text-align:center;color:rgba(200,175,110,0.45);font-size:0.88rem;letter-spacing:1.5px;padding:20px 0;">実績が追加され次第更新されます。</p>
+                </div>
+            </div>
+
+            <!-- Creator実績 -->
+            <div class="works-category">
+                <div class="works-category-header">
+                    <span class="works-cat-icon" style="color:var(--gold);background:rgba(209,173,63,0.1);border-color:rgba(209,173,63,0.3);box-shadow:0 0 18px rgba(209,173,63,0.1);">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    </span>
+                    <div>
+                        <div class="works-cat-label" style="color:var(--gold);">Creator</div>
+                        <div class="works-cat-sub">各カテゴリをクリックして実績を見る</div>
+                    </div>
+                </div>
+                <div class="creator-cards">
+                    <button class="creator-card" id="open-illust">
+                        <div class="creator-card-bg"></div>
+                        <span class="creator-card-icon">🎨</span>
+                        <span class="creator-card-label">Illustration</span>
+                        <span class="creator-card-count" id="illust-count">— works</span>
+                        <span class="creator-card-hint">Click to view</span>
+                    </button>
+                    <button class="creator-card" id="open-live2d">
+                        <div class="creator-card-bg"></div>
+                        <span class="creator-card-icon">✦</span>
+                        <span class="creator-card-label">Live2D</span>
+                        <span class="creator-card-count" id="live2d-count">— works</span>
+                        <span class="creator-card-hint">Click to view</span>
+                    </button>
+                    <button class="creator-card" id="open-mv">
+                        <div class="creator-card-bg"></div>
+                        <span class="creator-card-icon">🎬</span>
+                        <span class="creator-card-label">MV</span>
+                        <span class="creator-card-count" id="mv-count">— works</span>
+                        <span class="creator-card-hint">Click to view</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="works-note">
+                ※ 掲載可能な実績のみを記載しています。非公開案件については掲載しておりません。<br><br>
+                <button class="works-inquiry" id="open-inquiry">
+                    <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    お仕事のご依頼はこちら
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="game">
+        <div class="section-wrapper fade-up"><h2 class="section-title">Game</h2></div>
+        <div class="section-divider fade-up delay-1"></div>
+        <div class="media-grid" style="grid-template-columns:1fr;max-width:800px;">
+            <div class="media-item fade-up delay-2" style="padding:0; background: transparent; border: none; box-shadow: none;">
+                <a href="https://sharnoth0.github.io/GrimLily/" target="_blank" rel="noopener noreferrer" class="game-banner-inner" style="text-decoration:none;">
+                    <div class="game-banner-bg"></div>
+                    <div class="game-banner-content">
+                        <span class="game-genre-badge">百合風味アドベンチャー</span>
+                        <h3 class="banner-title">GrimLily</h3>
+                        <span class="banner-sub">タイトル未定 — 今冬〜来春 発売予定</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="ci-en">
+        <div class="section-wrapper fade-up"><h2 class="section-title">Ci-en</h2></div>
+        <div class="section-divider fade-up delay-1"></div>
+        <div class="media-grid" style="grid-template-columns:1fr;max-width:800px;">
+            <div class="media-item fade-up delay-2" style="padding:0; background: transparent; border: none; box-shadow: none;">
+                <p style="line-height:2.2;color:rgba(255,255,255,0.8);margin-bottom:30px; text-align: center;">
+                    応援してくれる深徒、深徒候補を認知するファンクラブ。<br>
+                    音声動画や料理日記、シチュエーションボイス、1on1通話など⋯⋯<br>
+                    様々なお返しをご用意しています。<br>
+                    支援の使い道は活動費がメイン。<br>
+                    ゲーム制作の日記もお読みいただけます！<br>
+                    きっとご満足していただけますのでこの機会にどうぞ🎶
+                </p>
+                <a href="https://ci-en.net/creator/35826" target="_blank" rel="noopener noreferrer" class="ci-en-banner-inner">
+                    <h3 class="banner-title">Official Fanclub</h3>
+                    <span class="banner-sub">Ci-enへ入会する</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="goods">
+        <div class="section-wrapper fade-up"><h2 class="section-title">Goods</h2></div>
+        <div class="section-divider fade-up delay-1"></div>
+        <div class="media-grid" style="grid-template-columns:1fr;max-width:800px;">
+            <div class="media-item fade-up delay-2" style="padding:0; background: transparent; border: none; box-shadow: none;">
+                <p style="line-height:2.2;color:rgba(255,255,255,0.8);margin-bottom:30px; text-align: center;">
+                    グッズやボイス、ガジェット等を販売する場所です。<br>ぜひ手に入れてくださいね。
+                </p>
+                <a href="https://gren.booth.pm/" target="_blank" rel="noopener noreferrer" class="booth-banner-inner">
+                    <div class="booth-shimmer"></div>
+                    <div class="booth-deco-line left"></div>
+                    <div class="booth-deco-line right"></div>
+                    <span class="booth-badge">Official Store</span>
+                    <h3 class="banner-title">BOOTH</h3>
+                    <span class="banner-sub">グッズ・ボイス・ガジェット</span>
+                    <span class="booth-enter">ショップを見る</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <nav class="floating-nav">
+        <ul id="nav-list">
+            <div class="nav-slider" id="nav-slider"></div>
+            <li><a href="#home"><span class="nav-rune"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,1 C12,1 13,8.5 14,10 C15.5,11.5 20,12 23,12 C20,12 15.5,12.5 14,14 C13,15.5 12,23 12,23 C12,23 11,15.5 10,14 C8.5,12.5 4,12 1,12 C4,12 8.5,11.5 10,10 C11,8.5 12,1 12,1Z"/></svg></span>Top</a></li>
+            <li><a href="#profile"><span class="nav-rune"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,1 C12,1 13,8.5 14,10 C15.5,11.5 20,12 23,12 C20,12 15.5,12.5 14,14 C13,15.5 12,23 12,23 C12,23 11,15.5 10,14 C8.5,12.5 4,12 1,12 C4,12 8.5,11.5 10,10 C11,8.5 12,1 12,1Z"/></svg></span>Profile</a></li>
+            <li><a href="#works"><span class="nav-rune"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,1 C12,1 13,8.5 14,10 C15.5,11.5 20,12 23,12 C20,12 15.5,12.5 14,14 C13,15.5 12,23 12,23 C12,23 11,15.5 10,14 C8.5,12.5 4,12 1,12 C4,12 8.5,11.5 10,10 C11,8.5 12,1 12,1Z"/></svg></span>Works</a></li>
+            <li><a href="#game"><span class="nav-rune"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,1 C12,1 13,8.5 14,10 C15.5,11.5 20,12 23,12 C20,12 15.5,12.5 14,14 C13,15.5 12,23 12,23 C12,23 11,15.5 10,14 C8.5,12.5 4,12 1,12 C4,12 8.5,11.5 10,10 C11,8.5 12,1 12,1Z"/></svg></span>Game</a></li>
+            <li><a href="#ci-en"><span class="nav-rune"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,1 C12,1 13,8.5 14,10 C15.5,11.5 20,12 23,12 C20,12 15.5,12.5 14,14 C13,15.5 12,23 12,23 C12,23 11,15.5 10,14 C8.5,12.5 4,12 1,12 C4,12 8.5,11.5 10,10 C11,8.5 12,1 12,1Z"/></svg></span>Ci-en</a></li>
+            <li><a href="#goods"><span class="nav-rune"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,1 C12,1 13,8.5 14,10 C15.5,11.5 20,12 23,12 C20,12 15.5,12.5 14,14 C13,15.5 12,23 12,23 C12,23 11,15.5 10,14 C8.5,12.5 4,12 1,12 C4,12 8.5,11.5 10,10 C11,8.5 12,1 12,1Z"/></svg></span>Goods</a></li>
+        </ul>
+    </nav>
+
+    <!-- ══ お仕事依頼モーダル ══ -->
+    <div class="modal-overlay inquiry-overlay" id="inquiry-modal">
+        <div class="inquiry-modal-wrap">
+            <button class="modal-close inquiry-close" id="inquiry-close">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="inq-header">
+                <div class="inq-header-deco">𓂀</div>
+                <h3 class="inq-title">Commission &amp; Works</h3>
+                <p class="inq-subtitle">ご依頼内容を選択すると予想金額が表示されます</p>
+            </div>
+            <div class="inq-tabs">
+                <button class="inq-tab active" data-inq="vtuber">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px;"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    VTuber案件
+                </button>
+                <button class="inq-tab" data-inq="illust">🎨 Illustration</button>
+                <button class="inq-tab" data-inq="live2d">✦ Live2D</button>
+                <button class="inq-tab" data-inq="mv">🎬 MV</button>
+            </div>
+            <div class="inq-body">
+                <div class="inq-panel active" id="inq-vtuber">
+                    <p class="inq-panel-desc">企業様・個人様問わずご依頼を承っております。<br>配信・PRなどお気軽にご相談ください。</p>
+                    <div class="inq-notice">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;flex-shrink:0;margin-top:2px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        VTuber案件の金額はすべてご相談ベースです。詳細はDMにてお問い合わせください。
+                    </div>
+                    <div class="inq-service-list">
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="ゲームタイアップ配信">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">ゲームタイアップ配信</span>
+                                <span class="inq-service-detail">指定ゲームのプレイ・紹介配信。配信時間・条件等はご相談。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="PR配信（商品・サービス紹介配信）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">PR配信（商品・サービス紹介配信）</span>
+                                <span class="inq-service-detail">配信枠内での商品・サービス紹介。尺・内容はご相談。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="PR投稿（SNS・動画）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">PR投稿（SNS・動画）</span>
+                                <span class="inq-service-detail">X（Twitter）・YouTube等でのプロモーション投稿。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="ASMRコンテンツ案件">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">ASMRコンテンツ案件</span>
+                                <span class="inq-service-detail">企業依頼によるASMR収録・配信。台本ありなし両対応。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="ナレーション・ボイス収録">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">ナレーション・ボイス収録</span>
+                                <span class="inq-service-detail">CM・動画・ゲーム用ナレーション、キャラクターボイス等。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="その他（コラボ・イベント等）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">その他（コラボ・イベント等）</span>
+                                <span class="inq-service-detail">上記以外の企画・コラボレーション等もお気軽にどうぞ。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                    </div>
+                    <div class="inq-terms">
+                        <div class="inq-terms-title">✦ ご依頼の流れ</div>
+                        <ol class="inq-steps">
+                            <li>XのDMまたはメールにてご連絡</li>
+                            <li>内容・条件のすり合わせ</li>
+                            <li>お見積もり提示・ご確認</li>
+                            <li>契約・制作・納品</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="inq-panel" id="inq-illust">
+                    <p class="inq-panel-desc">キャラクターイラスト・アイコン・サムネイルなど承ります。<br>下記からご希望の内容にチェックを入れてください。</p>
+                    <div class="inq-service-list">
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="5000" data-label="アイコン・バナー（バストアップ）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">アイコン・バナー（バストアップ）</span>
+                                <span class="inq-service-detail">SNSアイコン・配信バナー等。シンプル背景込み。</span>
+                            </div>
+                            <span class="inq-price-badge">¥5,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="8000" data-label="腰までのイラスト（フル彩色）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">腰までのイラスト（フル彩色）</span>
+                                <span class="inq-service-detail">ラフ〜線画〜着色。シンプル背景込み。</span>
+                            </div>
+                            <span class="inq-price-badge">¥8,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="10000" data-label="全身イラスト（フル彩色）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">全身イラスト（フル彩色）</span>
+                                <span class="inq-service-detail">ラフ〜線画〜着色。シンプル背景込み。</span>
+                            </div>
+                            <span class="inq-price-badge">¥10,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="0" data-label="詳細な背景イラストを希望する（提携絵師紹介）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">詳細な背景イラストを希望する（提携絵師紹介）</span>
+                                <span class="inq-service-detail">複雑な背景が必要な場合、提携絵師をご紹介します。</span>
+                            </div>
+                            <span class="inq-price-badge consult">要相談</span>
+                        </label>
+                        <div class="inq-service-row inq-spinner-row" id="illust-diff-row">
+                            <div class="inq-spinner-check">
+                                <input type="checkbox" class="inq-cb-spinner" id="illust-diff-cb">
+                            </div>
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">表情差分追加</span>
+                                <span class="inq-service-detail">1点につき ¥1,000。個数を選択してください。</span>
+                            </div>
+                            <div class="inq-spinner-wrap">
+                                <button class="inq-spin-btn" data-target="illust-diff-num" data-dir="-1">−</button>
+                                <span class="inq-spin-num" id="illust-diff-num">1</span>
+                                <button class="inq-spin-btn" data-target="illust-diff-num" data-dir="1">＋</button>
+                                <span class="inq-spin-price" id="illust-diff-price">+¥1,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inq-terms">
+                        <div class="inq-terms-title">✦ 注意事項</div>
+                        <ul class="inq-caution">
+                            <li>料金はすべて目安です。内容により変動します。</li>
+                            <li>修正は軽微なもの2回まで無料。大幅変更は別途費用。</li>
+                            <li>納期はご依頼内容により異なります（目安：2〜4週間）。</li>
+                            <li>NG設定・詳細はフォームまたはDMにてご確認ください。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="inq-panel" id="inq-live2d">
+                    <p class="inq-panel-desc">Live2Dモデルの新規制作・既存モデルへの追加改修を承ります。<br>素材（PSD）はご依頼者様からご提供いただきます。</p>
+                    <div class="inq-service-list">
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="30000" data-label="簡易モデリング（瞳揺れ・瞬き・頭XY斜め・髪ゆれ）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">簡易モデリング</span>
+                                <span class="inq-service-detail">瞳揺れ・瞬き・頭XY斜め・髪ゆれ。PSD支給前提。</span>
+                            </div>
+                            <span class="inq-price-badge">¥30,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="60000" data-label="フルモデリング（全身）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">フルモデリング（全身）</span>
+                                <span class="inq-service-detail">全身フルリギング・物理設定込み。PSD支給前提。</span>
+                            </div>
+                            <span class="inq-price-badge">¥60,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="20000" data-label="衣装差分追加（1点）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">衣装差分追加（1点）</span>
+                                <span class="inq-service-detail">既存モデルへの衣装差分追加・リギング。</span>
+                            </div>
+                            <span class="inq-price-badge add">+¥20,000〜</span>
+                        </label>
+                        <div class="inq-service-row inq-spinner-row" id="live2d-key-row">
+                            <div class="inq-spinner-check">
+                                <input type="checkbox" class="inq-cb-spinner" id="live2d-key-cb">
+                            </div>
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">キーバインド表情追加</span>
+                                <span class="inq-service-detail">個数 × ¥3,000。最大6個まで。</span>
+                            </div>
+                            <div class="inq-spinner-wrap">
+                                <button class="inq-spin-btn" data-target="live2d-key-num" data-dir="-1">−</button>
+                                <span class="inq-spin-num" id="live2d-key-num">1</span>
+                                <button class="inq-spin-btn" data-target="live2d-key-num" data-dir="1">＋</button>
+                                <span class="inq-spin-price" id="live2d-key-price">+¥3,000</span>
+                            </div>
+                        </div>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="15000" data-label="パーツ追加（アクセサリ等）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">パーツ追加（アクセサリ等）</span>
+                                <span class="inq-service-detail">帽子・小物・エフェクト等のパーツ追加。</span>
+                            </div>
+                            <span class="inq-price-badge add">+¥15,000〜</span>
+                        </label>
+                    </div>
+                    <div class="inq-terms">
+                        <div class="inq-terms-title">✦ 注意事項</div>
+                        <ul class="inq-caution">
+                            <li>料金はすべて目安です。パーツ数・複雑さにより変動します。</li>
+                            <li>素材（PSD）はパーツを分けてご支給いただく必要があります。</li>
+                            <li>納期目安：新規モデル 8〜12週間、追加改修 2〜4週間。</li>
+                            <li>Cubism Pro使用。納品はcmo3ファイル形式。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="inq-panel" id="inq-mv">
+                    <p class="inq-panel-desc">ミュージックビデオ・歌ってみた映像編集を承ります。<br>楽曲・素材はご依頼者様からご支給ください。</p>
+                    <div class="inq-service-list">
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="10000" data-label="歌ってみた動画編集（シンプル）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">歌ってみた動画編集（シンプル）</span>
+                                <span class="inq-service-detail">支給素材の組み合わせ・エフェクト・字幕込み。</span>
+                            </div>
+                            <span class="inq-price-badge">¥10,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="25000" data-label="リリックビデオ制作">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">リリックビデオ制作</span>
+                                <span class="inq-service-detail">歌詞アニメーション付きビデオ。テロップデザイン込み。</span>
+                            </div>
+                            <span class="inq-price-badge">¥25,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="60000" data-label="フルアニメーションMV">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">フルアニメーションMV</span>
+                                <span class="inq-service-detail">キャラクター動きあり・背景込みのフルMV（4分以内目安）。</span>
+                            </div>
+                            <span class="inq-price-badge">¥60,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="8000" data-label="サムネイル制作">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">サムネイル制作</span>
+                                <span class="inq-service-detail">YouTube・各種動画サイト用サムネイルデザイン。</span>
+                            </div>
+                            <span class="inq-price-badge add">+¥8,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="5000" data-label="4K書き出し対応">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">4K書き出し対応</span>
+                                <span class="inq-service-detail">4K（3840×2160）での書き出しが必要な場合に追加。</span>
+                            </div>
+                            <span class="inq-price-badge add">+¥5,000〜</span>
+                        </label>
+                        <label class="inq-service-row">
+                            <input type="checkbox" class="inq-cb" data-price="10000" data-label="急ぎ対応（通常納期の半分以下）">
+                            <div class="inq-service-info">
+                                <span class="inq-service-name">急ぎ対応（通常納期の半分以下）</span>
+                                <span class="inq-service-detail">特急料金。内容により対応不可の場合があります。</span>
+                            </div>
+                            <span class="inq-price-badge add">+¥10,000〜</span>
+                        </label>
+                    </div>
+                    <div class="inq-terms">
+                        <div class="inq-terms-title">✦ 注意事項</div>
+                        <ul class="inq-caution">
+                            <li>料金はすべて目安です。尺・内容により変動します。</li>
+                            <li>使用ソフト：Adobe After Effects / Premiere Pro。</li>
+                            <li>納品形式：MP4（H.264）。RAWデータは別途ご相談。</li>
+                            <li>納期目安：シンプル編集 1週間〜、フルMV 4〜8週間。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="inq-total-bar">
+                <div class="inq-selected-list" id="inq-selected-list">
+                    <span class="inq-no-select">← 上からご希望の項目を選択してください</span>
+                </div>
+                <div class="inq-total-right">
+                    <div class="inq-total-label">予想合計金額</div>
+                    <div class="inq-total-amount" id="inq-total">¥0</div>
+                    <div class="inq-total-note">（目安 / 税込・要相談）</div>
+                </div>
+            </div>
+            <div class="inq-footer">
+                <p class="inq-footer-note">上記はあくまで目安金額です。内容・納期・オプション等により変動します。<br>フォームから選択内容と金額を添えてご相談いただけます。</p>
+                <button class="inq-contact-btn" id="open-mailform">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    ご相談フォームを開く
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
-<div class="spacer-lg"></div>
-<div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
 
-<!-- SPEC -->
-<section id="spec">
-  <div class="s-wrap">
-    <div class="reveal"><p class="s-label">Spec</p><h2 class="s-title"><span class="marker">製品情報</span></h2></div>
-    <div class="spec-table reveal rd1">
-      <div class="spec-row"><span class="spec-key">Title</span><span class="spec-val">タイトル未定</span></div>
-      <div class="spec-row"><span class="spec-key">Genre</span><span class="spec-val">百合風味アドベンチャー</span></div>
-      <div class="spec-row"><span class="spec-key">Platform</span><span class="spec-val">PC</span></div>
-      <div class="spec-row"><span class="spec-key">Voice</span><span class="spec-val">フルボイス</span></div>
-      <div class="spec-row"><span class="spec-key">Price</span><span class="spec-val">¥1,200前後（予定）</span></div>
-      <div class="spec-row"><span class="spec-key">Release</span><span class="spec-val">今冬〜来春</span></div>
-      <div class="spec-row"><span class="spec-key">Circle</span><span class="spec-val">GrimLily</span></div>
+    <!-- ══ メールフォームモーダル ══ -->
+    <div class="modal-overlay" id="mailform-modal">
+        <div class="modal-content mailform-content">
+            <button class="modal-close" id="mailform-close">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div style="text-align:center;margin-bottom:24px;">
+                <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:0.68rem;letter-spacing:5px;margin-bottom:6px;">COMMISSION REQUEST</div>
+                <h3 style="font-family:'Cinzel',serif;color:#fff;font-size:1.4rem;letter-spacing:4px;margin:0;">お仕事のご相談</h3>
+            </div>
+            <div class="mf-summary" id="mf-summary">
+                <div class="mf-summary-title">選択中の項目</div>
+                <div class="mf-summary-items" id="mf-summary-items">（未選択）</div>
+                <div class="mf-summary-total">予想合計：<span id="mf-total-disp">¥0</span></div>
+            </div>
+            <div class="mf-form-body" id="mf-form-body">
+                <div class="mf-field">
+                    <label class="mf-label">お名前 <span class="mf-required">*</span></label>
+                    <input type="text" class="mf-input" id="mf-name" placeholder="例：シャルノス ／ Sharnoth">
+                </div>
+                <div class="mf-field">
+                    <label class="mf-label">返信希望メールアドレス <span class="mf-required">*</span></label>
+                    <input type="email" class="mf-input" id="mf-email" placeholder="例：your@email.com">
+                </div>
+                <div class="mf-field">
+                    <label class="mf-label">SNSアカウント <span class="mf-opt">任意</span></label>
+                    <input type="text" class="mf-input" id="mf-sns" placeholder="例：@grenadinesyrup_（X）">
+                </div>
+                <div class="mf-field">
+                    <label class="mf-label">活動場所・所属 <span class="mf-opt">任意</span></label>
+                    <input type="text" class="mf-input" id="mf-place" placeholder="例：個人Vtuber ／ ○○プロ所属">
+                </div>
+                <div class="mf-field">
+                    <label class="mf-label">ご相談内容 <span class="mf-required">*</span></label>
+                    <textarea class="mf-textarea" id="mf-message" rows="5" placeholder="ご依頼の詳細・ご質問など、お気軽にご記入ください。"></textarea>
+                </div>
+                <div class="mf-actions">
+                    <button class="mf-cancel" id="mf-cancel">キャンセル</button>
+                    <button class="mf-submit" id="mf-submit">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                        <span id="mf-submit-label">送信する</span>
+                    </button>
+                </div>
+                <p style="text-align:center;font-size:0.72rem;color:rgba(180,155,100,0.4);margin-top:12px;letter-spacing:1px;">送信先：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f09782959e9194999e95c08389828580b0979d91999cde939f9d">[email&#160;protected]</a></p>
+            </div>
+            <div class="mf-sent-view" id="mf-sent-view">
+                <div class="mf-sent-icon">𓂀</div>
+                <div class="mf-sent-title">ご相談を受け付けました</div>
+                <p class="mf-sent-msg">お問い合わせありがとうございます。<br>内容を確認のうえ、折り返しご連絡いたします。<br>今しばらくお待ちください。</p>
+                <button class="mf-cancel" id="mf-sent-close" style="margin-top:8px;width:100%;">閉じる</button>
+            </div>
+            <div class="mf-error-view" id="mf-error-view">
+                <div class="mf-error-msg" id="mf-error-msg"></div>
+                <button class="mf-cancel" id="mf-error-back" style="margin-top:8px;width:100%;">戻って再送信</button>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
-<div class="spacer-lg"></div>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOv">
-  <div class="modal-box">
-    <button class="modal-close" id="closeModal">✕</button>
-    <h2>配信・実況ガイドライン</h2>
-    <p>本作「タイトル未定」の実況・配信に関する規約です。</p>
-    <h3>許可される配信</h3>
-    <ul><li>個人・法人を問わず、動画投稿・生配信が可能です</li><li>収益化（広告収入等）を伴う配信も許可いたします</li><li>配信範囲の制限はありません（最後までプレイ可能）</li></ul>
-    <h3>お願い事項</h3>
-    <ul><li>配信タイトルまたは概要欄にゲーム名とサークル名「GrimLily」をご記載ください</li><li>ゲーム素材の単体での二次配布はご遠慮ください</li><li>過度なネタバレを含むサムネイルはお控えください</li></ul>
-    <h3>禁止事項</h3>
-    <ul><li>ゲーム内容を差別的・誹謗中傷的な文脈で使用すること</li><li>公序良俗に反する形での使用</li><li>自作発言</li></ul>
-    <p style="margin-top:16px">本規約は予告なく変更される場合があります。</p>
-  </div>
-</div>
+    <!-- Creator モーダル (Illust / Live2D / MV 共通) -->
+    <div class="modal-overlay" id="creator-modal">
+        <div class="modal-content creator-modal-content">
+            <button class="modal-close" id="creator-modal-close">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="creator-modal-header">
+                <span class="creator-modal-icon" id="creator-modal-icon"></span>
+                <div>
+                    <h3 class="creator-modal-title" id="creator-modal-title"></h3>
+                    <p class="creator-modal-sub" id="creator-modal-sub"></p>
+                </div>
+            </div>
+            <div class="creator-timeline" id="creator-timeline"></div>
+        </div>
+    </div>
 
-<footer><div class="footer-logo">GrimLily</div><div class="footer-line"></div><p>&copy; GrimLily. All Rights Reserved.</p></footer>
-
-<script>
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),800));
-const tb=document.getElementById('topBar');
-window.addEventListener('scroll',()=>tb.classList.toggle('scrolled',scrollY>80),{passive:true});
-const secs=document.querySelectorAll('section[id]');
-const bna=document.querySelectorAll('.bottom-nav a[href^="#"]');
-secs.forEach(s=>new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)bna.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))})},{threshold:.12,rootMargin:'-8% 0px -55% 0px'}).observe(s));
-const mo=document.getElementById('modalOv');
-document.getElementById('navGuideBtn').addEventListener('click',()=>mo.classList.add('open'));
-document.getElementById('closeModal').addEventListener('click',()=>mo.classList.remove('open'));
-mo.addEventListener('click',e=>{if(e.target===mo)mo.classList.remove('open')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')mo.classList.remove('open')});
-document.querySelectorAll('.reveal').forEach(r=>new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.06}).observe(r));
-(function(){const c=document.getElementById('sakura');for(let i=0;i<12;i++){const p=document.createElement('div');p.className='petal';const s=Math.random()*11+5;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;--po:${Math.random()*.14+.06};animation-duration:${Math.random()*8+11}s;animation-delay:${Math.random()*10+4}s;`;c.appendChild(p)}})();
-(function(){const c=document.getElementById('heroParticles');for(let i=0;i<18;i++){const p=document.createElement('div');p.className='h-particle';const s=Math.random()*2+1.5;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*8+10}s;animation-delay:${Math.random()*12}s;`;c.appendChild(p)}})();
-const pu=encodeURIComponent(location.href),pt=encodeURIComponent('GrimLily - タイトル未定 公式サイト');
-document.getElementById('shareX').href='https://twitter.com/intent/tweet?url='+pu+'&text='+pt;
-document.getElementById('shareLine').href='https://social-plugins.line.me/lineit/share?url='+pu;
-if(matchMedia('(pointer:fine)').matches){let t=0;document.addEventListener('mousemove',e=>{const n=Date.now();if(n-t<160)return;t=n;const r=document.createElement('div');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),800)})}
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(!h||h==='#')return;const t=document.querySelector(h);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}}));
-</script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
