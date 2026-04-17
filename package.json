@@ -1,9 +1,8 @@
 {
-  "name": "grimlily-netilfy-webhook",
+  "name": "grimlily-support",
   "version": "1.0.0",
-  "description": "Stripe Webhook for GrimLily on Netlify",
-  "main": "index.html",
+  "private": true,
   "dependencies": {
-    "stripe": "^15.0.0"
+    "stripe": "^17.0.0"
   }
 }

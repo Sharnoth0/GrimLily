@@ -1,0 +1,20 @@
+# ══════════════════════════════════════
+# GrimLily — Netlify 設定
+# ══════════════════════════════════════
+
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# ── URL をきれいにするリダイレクト ──
+# support.html から /create-checkout-session を呼べるようにする
+# Stripe ダッシュボードには /webhook を登録する
+[[redirects]]
+  from = "/create-checkout-session"
+  to = "/.netlify/functions/create-checkout-session"
+  status = 200
+
+[[redirects]]
+  from = "/webhook"
+  to = "/.netlify/functions/webhook"
+  status = 200
