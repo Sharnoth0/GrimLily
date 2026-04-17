@@ -49,8 +49,8 @@ exports.handler = async (event) => {
 
     const session = await stripe.checkout.sessions.create({
       mode: mode || 'subscription',
+      payment_method_types: ['card', 'customer_balance'],
       payment_method_options: {
-        payment_method_types: ['card', 'customer_balance'],
         customer_balance: {
           funding_type: 'bank_transfer',
           bank_transfer: {
