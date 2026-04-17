@@ -1,14 +1,9 @@
 {
-  "name": "grimlily-webhook",
+  "name": "grimlily-netilfy-webhook",
   "version": "1.0.0",
-  "description": "Stripe Webhook Server for GrimLily",
-  "main": "webhook-server.js",
-  "scripts": {
-    "start": "node webhook-server.js"
-  },
+  "description": "Stripe Webhook for GrimLily on Netlify",
+  "main": "index.html",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
     "stripe": "^15.0.0"
   }
 }
