@@ -416,16 +416,19 @@ if(matchMedia('(pointer:fine)').matches){
       - Backer:    ¥5,000/月 (recurring) → price_BACKER_XXXX
       - Patron:    ¥10,000/月 (recurring) → price_PATRON_XXXX
       - Boost:     自由金額 (one_time, customer_chooses_price) → price_BOOST_XXXX
-   2. 下記の priceMap を実際の Price ID に差し替え
-   3. サーバー側の /create-checkout-session を用意（webhook-server.js 参照）
+   2. 下の API_BASE を Netlify のドメインに差し替え
+   3. 下記の priceMap を実際の Price ID に差し替え
 */
 
+// ★ ここをあんたの Netlify ドメインに差し替える
+const API_BASE = 'https://grimlily.netlify.app';
+
 const priceMap = {
-  light:     'price_1TN7elGfyAVlSOBgDIRql45r',      // ¥500/月
-  supporter: 'price_1TNCQDGfyAVlSOBgnCR7yaQ0',   // ¥3,000/月
-  backer:    'price_1TNCQZGfyAVlSOBgRDpMez4K',      // ¥5,000/月
-  patron:    'price_1TNCQsGfyAVlSOBghjYUq45k',      // ¥10,000/月
-  boost:     'price_1TNCTXGfyAVlSOBgEi6d9Dou',       // 任意の金額（都度）
+  light:     'price_LIGHT_XXXXXXXXXXXX',      // ¥500/月
+  supporter: 'price_SUPPORTER_XXXXXXXXXXXX',   // ¥3,000/月
+  backer:    'price_BACKER_XXXXXXXXXXXX',      // ¥5,000/月
+  patron:    'price_PATRON_XXXXXXXXXXXX',      // ¥10,000/月
+  boost:     'price_BOOST_XXXXXXXXXXXX',       // 任意の金額（都度）
 };
 
 async function handleCheckout(plan) {
@@ -437,7 +440,7 @@ async function handleCheckout(plan) {
   try {
     const isBoost = plan === 'boost';
 
-    const res = await fetch('/create-checkout-session', {
+    const res = await fetch(`${API_BASE}/create-checkout-session`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
