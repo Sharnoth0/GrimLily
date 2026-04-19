@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Memberstack webflow package -->
-<script data-memberstack-app="app_cmo14zr0x00170sz302gsdym9" src="https://static.memberstack.com/scripts/v2/memberstack.js" type="text/javascript"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GrimLily | タイトル未定 公式サイト</title>
@@ -138,6 +136,43 @@ body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hi
 .spec-key{font-family:var(--fu);font-size:.74rem;letter-spacing:.12em;color:var(--ac);min-width:110px;flex-shrink:0}
 .spec-val{font-size:.92rem;color:var(--tm);font-weight:300}
 
+/* ===== SUPPORT (招待カード) ===== */
+#support{position:relative;padding:140px 24px 100px;background:linear-gradient(180deg,var(--white) 0%,var(--rp) 45%,var(--ll) 80%,var(--white) 100%);overflow:hidden}
+#support::before{content:'';position:absolute;top:10%;left:-5%;width:420px;height:420px;border-radius:50%;background:radial-gradient(ellipse,rgba(240,198,217,.18),transparent 65%);pointer-events:none;animation:supGlow 14s ease-in-out infinite alternate}
+#support::after{content:'';position:absolute;bottom:5%;right:-8%;width:460px;height:460px;border-radius:50%;background:radial-gradient(ellipse,rgba(157,192,204,.14),transparent 65%);pointer-events:none;animation:supGlow 14s ease-in-out infinite alternate-reverse}
+@keyframes supGlow{0%{opacity:.5;transform:scale(1) translate(0,0)}100%{opacity:.85;transform:scale(1.12) translate(3%,4%)}}
+
+.support-card{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:64px 52px 56px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(253,245,249,.6));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(209,179,195,.25);border-radius:8px;box-shadow:0 14px 56px rgba(137,194,212,.1),0 0 0 1px rgba(255,255,255,.5) inset;text-align:center}
+/* 便箋の装飾コーナー */
+.support-card::before,.support-card::after{content:'';position:absolute;width:32px;height:32px;border-color:rgba(209,179,195,.5);pointer-events:none}
+.support-card::before{top:16px;left:16px;border-top:1px solid;border-left:1px solid;border-top-left-radius:4px}
+.support-card::after{bottom:16px;right:16px;border-bottom:1px solid;border-right:1px solid;border-bottom-right-radius:4px}
+
+.support-emblem{margin-bottom:18px;display:flex;justify-content:center;color:var(--wm);opacity:.7}
+.support-emblem svg{width:52px;height:36px}
+
+.support-label{font-family:var(--fu);font-size:.56rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.support-title{font-family:var(--fd);font-size:clamp(1.5rem,3.2vw,2rem);font-weight:300;letter-spacing:.1em;color:var(--tx);margin-bottom:10px;line-height:1.4}
+.support-title .marker{background:linear-gradient(transparent 58%,rgba(240,198,217,.3) 58%,rgba(196,176,216,.22) 100%);padding:0 6px;border-radius:2px}
+.support-sub{font-family:var(--fa);font-style:italic;font-size:.88rem;color:var(--wm);letter-spacing:.04em;margin-bottom:28px}
+.support-divider{width:40px;height:1px;margin:0 auto 30px;background:linear-gradient(90deg,transparent,var(--ac),var(--ld),transparent)}
+
+.support-text{font-size:.92rem;color:var(--tm);line-height:2.05;font-weight:300;margin-bottom:32px;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word;text-wrap:pretty}
+.support-text strong{font-weight:500;color:var(--tx)}
+@supports not (word-break: auto-phrase){
+  .support-text{word-break:keep-all}
+}
+
+.support-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 44px;border-radius:32px;background:linear-gradient(135deg,var(--ac),var(--ld));color:var(--white);text-decoration:none;font-family:var(--fu);font-size:.86rem;letter-spacing:.14em;font-weight:500;box-shadow:0 6px 24px rgba(157,192,204,.3);transition:all .4s cubic-bezier(.22,.61,.36,1);position:relative;overflow:hidden}
+.support-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ld),var(--wm));opacity:0;transition:opacity .4s;border-radius:32px}
+.support-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(157,192,204,.4)}
+.support-btn:hover::before{opacity:1}
+.support-btn>*{position:relative;z-index:1}
+.support-btn svg{width:16px;height:16px;transition:transform .3s}
+.support-btn:hover svg{transform:translateX(4px)}
+
+.support-note{font-family:var(--fu);font-size:.68rem;color:var(--tl);letter-spacing:.08em;margin-top:22px;line-height:1.8}
+
 /* ===== MODAL ===== */
 .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(44,54,64,.25);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
 .modal-overlay.open{opacity:1;visibility:visible}
@@ -164,18 +199,21 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-  #news,#staff,#spec{padding-left:18px;padding-right:18px}
+  #news,#staff,#spec,#support{padding-left:18px;padding-right:18px}
   .news-item{flex-direction:column;gap:5px}
   .bottom-nav{height:56px;gap:3px;padding:0 8px}
   .bottom-nav a,.bottom-nav button{padding:8px 10px;font-size:.78rem;letter-spacing:.08em}
   .nav-sep{margin:0 3px}
   .hero-title-wrap{padding:22px 36px 18px}
   .cien-banner{font-size:.68rem;padding:18px 11px}
+  .support-card{padding:48px 32px 44px}
 }
 @media(max-width:480px){
   .bottom-nav a,.bottom-nav button{padding:6px 7px;font-size:.68rem;letter-spacing:.05em}
   .bn-label{display:none}
   .cien-banner{font-size:.6rem;padding:14px 9px}
+  .support-card{padding:42px 26px 38px}
+  .support-btn{padding:14px 32px;font-size:.78rem}
 }
 </style>
 </head>
@@ -211,6 +249,7 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   <a href="#news">News</a>
   <a href="#staff">Staff</a>
   <a href="#spec">Spec</a>
+  <a href="#support">Support</a>
   <span class="nav-sep"></span>
   <button id="navGuideBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="bn-label">Guideline</span></button>
   <span class="nav-sep"></span>
@@ -283,6 +322,36 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
       <div class="spec-row"><span class="spec-key">Release</span><span class="spec-val">今冬〜来春</span></div>
       <div class="spec-row"><span class="spec-key">Circle</span><span class="spec-val">GrimLily</span></div>
     </div>
+  </div>
+</section>
+<div class="spacer-lg"></div>
+<div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
+
+<!-- SUPPORT -->
+<section id="support">
+  <div class="support-card reveal">
+    <div class="support-emblem" aria-hidden="true">
+      <svg viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M30 4 C 24 12, 20 18, 16 22 M30 4 C 36 12, 40 18, 44 22 M30 4 L 30 36" opacity=".7"/>
+        <path d="M18 18 C 22 20, 26 22, 30 22 M42 18 C 38 20, 34 22, 30 22" opacity=".5"/>
+        <path d="M22 28 C 26 30, 28 32, 30 34 M38 28 C 34 30, 32 32, 30 34" opacity=".4"/>
+        <circle cx="30" cy="22" r="1.5" fill="currentColor" opacity=".6"/>
+      </svg>
+    </div>
+    <p class="support-label">Support</p>
+    <h2 class="support-title"><span class="marker">秘密の庭への招待状</span></h2>
+    <p class="support-sub">An invitation to the secret garden</p>
+    <div class="support-divider"></div>
+    <p class="support-text">
+      制作の裏側や、まだ形になる前の想いをお届けする<br>
+      <strong>ビジター限定の場所</strong>をご用意しています。<br>
+      ささやかな支援で、活動をもっと近くで見守ることができます。
+    </p>
+    <a href="/support.html" class="support-btn">
+      <span>ビジターになる</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+    </a>
+    <p class="support-note">月額 ¥500 から ／ いつでも解約できます</p>
   </div>
 </section>
 <div class="spacer-lg"></div>
