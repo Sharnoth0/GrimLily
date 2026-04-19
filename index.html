@@ -85,9 +85,65 @@ body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hi
 .scroll-hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:4;opacity:0;animation:fadeIn 1s 2.2s forwards}
 .scroll-hint span{display:block;width:1px;height:22px;background:linear-gradient(to bottom,var(--tl),transparent);animation:sP 2.4s ease-in-out infinite}
 @keyframes sP{0%,100%{opacity:.1;transform:scaleY(.4)}50%{opacity:.35;transform:scaleY(1)}}
-.cien-banner{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:98;writing-mode:vertical-rl;text-decoration:none;font-family:var(--fu);font-size:.78rem;letter-spacing:.22em;color:var(--tm);padding:24px 14px;background:rgba(250,249,252,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.45);border-right:none;border-radius:12px 0 0 12px;transition:all .3s;opacity:0;animation:fadeIn .8s 2s forwards}
-.cien-banner:hover{background:rgba(236,228,243,.45);color:var(--tx);padding-right:18px}
-.cien-banner span{font-size:.6rem;color:var(--ac);display:block;margin-top:10px}
+
+
+
+/* ===== HERO DIARY BUTTON (右下の装飾ボタン) ===== */
+.hero-diary{position:absolute;right:40px;bottom:48px;z-index:5;display:inline-flex;align-items:center;gap:20px;padding:22px 38px 22px 30px;text-decoration:none;border-radius:54px;background:linear-gradient(135deg,rgba(254,254,254,.6),rgba(253,245,249,.45));backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);border:1px solid rgba(255,255,255,.6);box-shadow:0 10px 34px rgba(157,192,204,.22),0 0 0 1px rgba(255,255,255,.3) inset;font-family:var(--fu);letter-spacing:.14em;color:var(--tx);opacity:0;animation:fadeUp 1s 1.8s forwards;transition:transform .4s cubic-bezier(.22,.61,.36,1),box-shadow .4s,background .4s,opacity .5s;overflow:hidden}
+.hero-diary::before{content:'';position:absolute;inset:0;border-radius:54px;background:linear-gradient(135deg,rgba(240,198,217,.4),rgba(196,176,216,.32),rgba(157,192,204,.28));opacity:0;transition:opacity .4s;z-index:0}
+.hero-diary:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(157,192,204,.32),0 0 0 1px rgba(255,255,255,.45) inset}
+.hero-diary:hover::before{opacity:1}
+.hero-diary>*{position:relative;z-index:1}
+.hero-diary.hide{opacity:0;transform:translateY(10px);pointer-events:none}
+
+.hero-diary-icon{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--rs),var(--ld));color:var(--white);flex-shrink:0;box-shadow:0 3px 12px rgba(209,179,195,.4)}
+.hero-diary-icon svg{width:22px;height:22px}
+
+.hero-diary-text{display:flex;flex-direction:column;gap:4px;line-height:1.2}
+.hero-diary-title{font-size:1rem;font-weight:500;letter-spacing:.16em;color:var(--tx)}
+.hero-diary-sub{font-family:var(--fa);font-style:italic;font-size:.74rem;color:var(--wm);letter-spacing:.1em;font-weight:400}
+
+.hero-diary-arrow{width:18px;height:18px;color:var(--tl);transition:transform .3s,color .3s;margin-left:6px}
+.hero-diary:hover .hero-diary-arrow{transform:translateX(4px);color:var(--tx)}
+
+/* 脈打つ外側リング */
+.hero-diary-pulse{position:absolute;inset:-1px;border-radius:54px;border:1px solid rgba(209,179,195,.4);pointer-events:none;animation:diaryPulse 3s ease-in-out infinite;z-index:0}
+@keyframes diaryPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:0;transform:scale(1.08)}}
+
+/* ===== 星カスタムカーソル ===== */
+.cursor-wrap{position:fixed;top:0;left:0;width:0;height:0;pointer-events:none;z-index:9997}
+
+/* 中心の小さな光点（マウスに完全追従） */
+.cursor-dot{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 0 8px rgba(240,198,217,.7),0 0 16px rgba(196,176,216,.5),0 0 24px rgba(157,192,204,.3);pointer-events:none;z-index:9998;transition:opacity .25s,width .25s,height .25s;margin-left:-3px;margin-top:-3px;will-change:transform}
+
+/* 星本体（リング層） */
+.cursor-star{position:fixed;top:0;left:0;width:48px;height:48px;pointer-events:none;z-index:9997;margin-left:-24px;margin-top:-24px;will-change:transform;transition:width .35s cubic-bezier(.22,.61,.36,1),height .35s cubic-bezier(.22,.61,.36,1),margin .35s cubic-bezier(.22,.61,.36,1)}
+.cursor-star svg{width:100%;height:100%;overflow:visible;animation:starSpin 20s linear infinite}
+
+/* 星のグラデーション定義用スタイル */
+.cursor-star .star-shape{fill:url(#starGrad);stroke:rgba(255,255,255,.6);stroke-width:.5;filter:drop-shadow(0 0 4px rgba(240,198,217,.5))}
+.cursor-star .star-inner{fill:rgba(255,255,255,.8);opacity:.9}
+.cursor-star .star-core{fill:rgba(255,253,250,1)}
+.cursor-star .star-glow{fill:none;stroke:rgba(255,255,255,.3);stroke-width:.4;opacity:.6}
+
+@keyframes starSpin{to{transform:rotate(360deg)}}
+
+/* 星のきらめきアニメ */
+.cursor-star .sparkle-line{stroke:rgba(255,255,255,.5);stroke-width:.6;stroke-linecap:round;animation:sparkleFade 2s ease-in-out infinite}
+@keyframes sparkleFade{0%,100%{opacity:.2}50%{opacity:.7}}
+
+/* hover時：星が拡大して明るく輝く */
+.cursor-star.hover{width:68px;height:68px;margin-left:-34px;margin-top:-34px}
+.cursor-star.hover svg{animation-duration:8s}
+.cursor-star.hover .star-shape{filter:drop-shadow(0 0 8px rgba(240,198,217,.8)) drop-shadow(0 0 14px rgba(196,176,216,.5))}
+.cursor-dot.hover{opacity:0}
+
+/* クリック時：星がキュッと縮む */
+.cursor-star.click{width:36px;height:36px;margin-left:-18px;margin-top:-18px}
+.cursor-star.hover.click{width:54px;height:54px;margin-left:-27px;margin-top:-27px}
+
+/* カスタムカーソル使用時、デフォルトカーソルを隠す */
+body.has-custom-cursor,body.has-custom-cursor a,body.has-custom-cursor button,body.has-custom-cursor input,body.has-custom-cursor textarea,body.has-custom-cursor select{cursor:none}
 
 /* ===== COMMON ===== */
 .s-label{font-family:var(--fu);font-size:.54rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
@@ -127,6 +183,15 @@ body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hi
 .staff-row:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(137,194,212,.06)}
 .staff-role{font-family:var(--fu);font-size:.68rem;letter-spacing:.1em;color:var(--ac);line-height:1.6}
 .staff-name{font-size:1rem;font-weight:400;color:var(--tx)}
+.staff-name a{color:var(--tx);text-decoration:none;position:relative;transition:color .3s}
+.staff-name a::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1px;background:linear-gradient(90deg,var(--ac),var(--ld));transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,.61,.36,1)}
+.staff-name a:hover{color:var(--ac)}
+.staff-name a:hover::after{transform:scaleX(1)}
+.staff-name a .ext-icon{display:inline-block;width:10px;height:10px;margin-left:4px;opacity:.4;vertical-align:1px;transition:opacity .3s,transform .3s}
+.staff-name a:hover .ext-icon{opacity:.8;transform:translate(1px,-1px)}
+.staff-name .sep{color:var(--tl);margin:0 6px;opacity:.5;font-weight:300;transition:color .3s,opacity .3s}
+.staff-name a .sep{color:inherit;opacity:.6}
+.staff-name a:hover .sep{opacity:.8}
 
 /* ===== SPEC ===== */
 #spec{background:var(--white);padding:140px 24px 80px}
@@ -205,19 +270,64 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   .bottom-nav a,.bottom-nav button{padding:8px 10px;font-size:.78rem;letter-spacing:.08em}
   .nav-sep{margin:0 3px}
   .hero-title-wrap{padding:22px 36px 18px}
-  .cien-banner{font-size:.68rem;padding:18px 11px}
   .support-card{padding:48px 32px 44px}
+  .hero-diary{right:20px;bottom:36px;padding:18px 28px 18px 24px;gap:16px;border-radius:48px}
+  .hero-diary-pulse{border-radius:48px}
+  .hero-diary-icon{width:44px;height:44px}
+  .hero-diary-icon svg{width:20px;height:20px}
+  .hero-diary-title{font-size:.88rem;letter-spacing:.12em}
+  .hero-diary-sub{font-size:.66rem}
 }
 @media(max-width:480px){
   .bottom-nav a,.bottom-nav button{padding:6px 7px;font-size:.68rem;letter-spacing:.05em}
   .bn-label{display:none}
-  .cien-banner{font-size:.6rem;padding:14px 9px}
   .support-card{padding:42px 26px 38px}
   .support-btn{padding:14px 32px;font-size:.78rem}
+  .hero-diary{right:14px;bottom:28px;padding:14px 20px 14px 18px;gap:12px;border-radius:42px}
+  .hero-diary-pulse{border-radius:42px}
+  .hero-diary-icon{width:38px;height:38px}
+  .hero-diary-icon svg{width:17px;height:17px}
+  .hero-diary-title{font-size:.78rem;letter-spacing:.1em}
+  .hero-diary-sub{display:none}
+  .hero-diary-arrow{display:none}
+}
+
+/* ポインタが荒い（タッチ端末）場合はカスタムカーソル非表示 */
+@media(hover:none),(pointer:coarse){
+  .cursor-wrap{display:none}
+  body.has-custom-cursor,body.has-custom-cursor a,body.has-custom-cursor button{cursor:auto}
 }
 </style>
 </head>
 <body>
+
+<!-- カスタムカーソル（星／デスクトップのみ） -->
+<div class="cursor-wrap" id="cursorWrap" aria-hidden="true">
+  <div class="cursor-star" id="cursorStar">
+    <svg viewBox="-30 -30 60 60" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="starGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(255,253,250,.95)"/>
+          <stop offset="35%" stop-color="rgba(253,245,249,.85)"/>
+          <stop offset="70%" stop-color="rgba(240,198,217,.5)"/>
+          <stop offset="100%" stop-color="rgba(196,176,216,.2)"/>
+        </radialGradient>
+      </defs>
+      <!-- 四光星：縦横の4方向に鋭く伸びる -->
+      <path class="star-shape" d="M 0 -24 L 4 -4 L 24 0 L 4 4 L 0 24 L -4 4 L -24 0 L -4 -4 Z"/>
+      <!-- 内側の小さな星（コントラスト） -->
+      <path class="star-inner" d="M 0 -10 L 2 -2 L 10 0 L 2 2 L 0 10 L -2 2 L -10 0 L -2 -2 Z"/>
+      <!-- きらめきの対角線（装飾） -->
+      <line class="sparkle-line" x1="-16" y1="-16" x2="-10" y2="-10"/>
+      <line class="sparkle-line" x1="16" y1="-16" x2="10" y2="-10" style="animation-delay:-.5s"/>
+      <line class="sparkle-line" x1="-16" y1="16" x2="-10" y2="10" style="animation-delay:-1s"/>
+      <line class="sparkle-line" x1="16" y1="16" x2="10" y2="10" style="animation-delay:-1.5s"/>
+      <!-- 中心の光点 -->
+      <circle class="star-core" cx="0" cy="0" r="1.8"/>
+    </svg>
+  </div>
+  <div class="cursor-dot" id="cursorDot"></div>
+</div>
 
 <!-- LOADER -->
 <div id="loader">
@@ -249,7 +359,7 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   <a href="#news">News</a>
   <a href="#staff">Staff</a>
   <a href="#spec">Spec</a>
-  <a href="#support">Support</a>
+  <a href="#support">Fanclub</a>
   <span class="nav-sep"></span>
   <button id="navGuideBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="bn-label">Guideline</span></button>
   <span class="nav-sep"></span>
@@ -257,8 +367,6 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   <a href="#" id="shareLine" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596a.629.629 0 01-.199.031c-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
 </nav>
 
-
-<a href="https://ci-en.net/creator/35826" target="_blank" rel="noopener" class="cien-banner">制作日記 公開中<span>Ci-en</span></a>
 
 <!-- HERO -->
 <section id="hero">
@@ -279,6 +387,22 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
     <div class="hero-divider"></div>
   </div>
   <div class="scroll-hint"><span></span></div>
+
+  <!-- 活動日誌ボタン（ヒーロー右下） -->
+  <a href="/support.html" class="hero-diary" id="heroDiary">
+    <span class="hero-diary-pulse" aria-hidden="true"></span>
+    <span class="hero-diary-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4a2 2 0 012-2h12a2 2 0 012 2v16a1 1 0 01-1.5.87L12 18l-6.5 2.87A1 1 0 014 20V4z"/>
+        <path d="M8 7h8M8 11h8M8 15h5" opacity=".5"/>
+      </svg>
+    </span>
+    <span class="hero-diary-text">
+      <span class="hero-diary-title">活動日誌 公開中</span>
+      <span class="hero-diary-sub">Fanclub · Behind the scenes</span>
+    </span>
+    <svg class="hero-diary-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+  </a>
 </section>
 
 <!-- NEWS -->
@@ -298,11 +422,12 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   <div class="s-wrap">
     <div class="reveal"><p class="s-label">Staff</p><h2 class="s-title"><span class="marker">制作スタッフ</span></h2></div>
     <div class="staff-grid reveal rd1">
-      <div class="staff-row"><span class="staff-role">Producer / Director / Character Design & Illustration</span><span class="staff-name">シャルノス・グレナデン（GrimLily）</span></div>
-      <div class="staff-row"><span class="staff-role">Assistant & Music Production</span><span class="staff-name">しあん（GrimLily）</span></div>
+      <div class="staff-row"><span class="staff-role">Producer / Director / Character Design & Illustration</span><span class="staff-name"><a href="https://sharnoth0.github.io/" target="_blank" rel="noopener">シャルノス・グレナデン<span class="sep">/</span>GrimLily<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></span></div>
+      <div class="staff-row"><span class="staff-role">Assistant & Scenario Writer & Music Production</span><span class="staff-name"><a href="https://www.youtube.com/@%E3%81%97%E3%81%82%E3%82%93VT" target="_blank" rel="noopener">しあん<span class="sep">/</span>GrimLily<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></span></div>
+      <div class="staff-row"><span class="staff-role">Logo & UI Design</span><span class="staff-name"><a href="https://www.foriio.com/00malmal" target="_blank" rel="noopener">まる<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></span></div>
       <div class="staff-row"><span class="staff-role">Background Art</span><span class="staff-name">ソミニカ</span></div>
-      <div class="staff-row"><span class="staff-role">Programming Support</span><span class="staff-name">てさりあ</span></div>
-      <div class="staff-row"><span class="staff-role">Voice Cast（予定）</span><span class="staff-name">夜鳴かすか / 碧縁 / ロウィナ・トリウィア</span></div>
+      <div class="staff-row"><span class="staff-role">Programming Support</span><span class="staff-name"><a href="https://tetherea.com/" target="_blank" rel="noopener">てさりあ<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></span></div>
+      <div class="staff-row"><span class="staff-role">Voice Cast（予定）</span><span class="staff-name"><a href="https://www.youtube.com/@%E5%A4%9C%E9%B3%B4%E3%81%8B%E3%81%99%E3%81%8B" target="_blank" rel="noopener">夜鳴かすか<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a><span class="sep">/</span><a href="https://www.youtube.com/@-Aoi_Enishi-" target="_blank" rel="noopener">碧縁<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a><span class="sep">/</span><a href="https://www.youtube.com/@RowinaTrivia" target="_blank" rel="noopener">ロウィナ・トリウィア<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></span></div>
     </div>
   </div>
 </section>
@@ -327,7 +452,7 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
 <div class="spacer-lg"></div>
 <div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
 
-<!-- SUPPORT -->
+<!-- FANCLUB -->
 <section id="support">
   <div class="support-card reveal">
     <div class="support-emblem" aria-hidden="true">
@@ -338,17 +463,17 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
         <circle cx="30" cy="22" r="1.5" fill="currentColor" opacity=".6"/>
       </svg>
     </div>
-    <p class="support-label">Support</p>
-    <h2 class="support-title"><span class="marker">秘密の庭への招待状</span></h2>
-    <p class="support-sub">An invitation to the secret garden</p>
+    <p class="support-label">Fanclub</p>
+    <h2 class="support-title"><span class="marker">庭の入口</span></h2>
+    <p class="support-sub">The gate to our secret garden</p>
     <div class="support-divider"></div>
     <p class="support-text">
-      制作の裏側や、まだ形になる前の想いをお届けする<br>
-      <strong>ビジター限定の場所</strong>をご用意しています。<br>
-      ささやかな支援で、活動をもっと近くで見守ることができます。
+      この門の向こうには、制作の裏側や、<br>
+      まだ形になる前のささやかな想いが息づいています。<br>
+      <strong>GrimLily の庭</strong>で、もう少し近くからご覧になりませんか。
     </p>
     <a href="/support.html" class="support-btn">
-      <span>ビジターになる</span>
+      <span>庭に入る</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
     </a>
     <p class="support-note">月額 ¥500 から ／ いつでも解約できます</p>
@@ -392,7 +517,98 @@ document.querySelectorAll('.reveal').forEach(r=>new IntersectionObserver(es=>{es
 const pu=encodeURIComponent(location.href),pt=encodeURIComponent('GrimLily - タイトル未定 公式サイト');
 document.getElementById('shareX').href='https://twitter.com/intent/tweet?url='+pu+'&text='+pt;
 document.getElementById('shareLine').href='https://social-plugins.line.me/lineit/share?url='+pu;
-if(matchMedia('(pointer:fine)').matches){let t=0;document.addEventListener('mousemove',e=>{const n=Date.now();if(n-t<160)return;t=n;const r=document.createElement('div');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),800)})}
+
+/* ── スクロール連動：ヒーロー右下ボタンの表示制御 ── */
+(function(){
+  const heroDiary = document.getElementById('heroDiary');
+  const hero = document.getElementById('hero');
+  if(!heroDiary || !hero) return;
+
+  // ヒーローが見えている間だけ表示／抜けたらフェードアウト
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.intersectionRatio > 0.15){
+        heroDiary.classList.remove('hide');
+      } else {
+        heroDiary.classList.add('hide');
+      }
+    });
+  }, { threshold: [0, 0.15, 0.3] });
+  io.observe(hero);
+})();
+
+/* ── 星カスタムカーソル（デスクトップのみ） ── */
+if(matchMedia('(pointer:fine)').matches && !matchMedia('(hover:none)').matches){
+  const star = document.getElementById('cursorStar');
+  const dot  = document.getElementById('cursorDot');
+  const wrap = document.getElementById('cursorWrap');
+  document.body.classList.add('has-custom-cursor');
+
+  // 現在のマウス位置
+  let mx = -100, my = -100;   // 初期は画面外（マウスが動くまで見えない）
+  // 星の追従位置（少し遅れて追いつく）
+  let sx = -100, sy = -100;
+  let tracking = false;
+
+  // マウス移動で位置を記録し、requestAnimationFrame ループを開始
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    // ドット（中心光点）は位置変更と同時に即座に動かす
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+    if(!tracking){
+      tracking = true;
+      // 初回は星を一気にマウス位置へ移動（開始遅延防止）
+      sx = mx; sy = my;
+      star.style.left = sx + 'px';
+      star.style.top  = sy + 'px';
+      requestAnimationFrame(animate);
+    }
+  }, { passive: true });
+
+  // 星の位置を滑らかに更新（機敏なイージング）
+  function animate(){
+    sx += (mx - sx) * 0.35;
+    sy += (my - sy) * 0.35;
+    // 微誤差をスナップ
+    if(Math.abs(mx - sx) < 0.2) sx = mx;
+    if(Math.abs(my - sy) < 0.2) sy = my;
+    star.style.left = sx + 'px';
+    star.style.top  = sy + 'px';
+    requestAnimationFrame(animate);
+  }
+
+  // hover判定（クリック可能要素）
+  const hoverSelector = 'a,button,input,textarea,select,[role="button"]';
+  document.addEventListener('mouseover', e => {
+    if(e.target.closest(hoverSelector)){
+      star.classList.add('hover');
+      dot.classList.add('hover');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if(e.target.closest(hoverSelector) && !e.relatedTarget?.closest(hoverSelector)){
+      star.classList.remove('hover');
+      dot.classList.remove('hover');
+    }
+  });
+
+  // クリック時のきらめき縮み
+  document.addEventListener('mousedown', () => star.classList.add('click'));
+  document.addEventListener('mouseup',   () => star.classList.remove('click'));
+
+  // ウィンドウ外で透明化
+  document.addEventListener('mouseleave', () => {
+    star.style.opacity = '0';
+    dot.style.opacity  = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    star.style.opacity = '1';
+    dot.style.opacity  = '1';
+  });
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(!h||h==='#')return;const t=document.querySelector(h);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}}));
 </script>
 
