@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self' https://grimlily.grenadine0syrup.workers.dev;">
+<!-- ブラウザキャッシュ対策：更新時に古いHTMLが残らないように -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Support | GrimLily</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500&family=Quicksand:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fefefe;--off:#faf9fc;
+  --sf:#e6f2f7;--sl:#d0eaf4;--sm:#b4dbe8;--sd:#89c2d4;
+  --lv:#ece4f3;--ll:#f5f0fa;--lm:#d8cce6;--ld:#c4b0d8;
+  --rs:#f0c6d9;--rl:#f8e6ef;--rp:#fdf5f9;
+  --tx:#2c3640;--tm:#5a6d7a;--tl:#8a9dad;
+  --ac:#9dc0cc;--wm:#d1b3c3;
+  --fd:'Cormorant Garamond',serif;--fb:'Noto Serif JP',serif;
+  --fu:'Quicksand',sans-serif;--fa:'Playfair Display',serif;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hidden;min-height:100vh}
+::selection{background:var(--sl);color:var(--tx)}
+
+/* ===== LOADER ===== */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity 1s,visibility 1s}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-apple{position:relative;width:56px;height:56px;animation:appleBreath 3s ease-in-out infinite}
+.loader-apple svg{width:100%;height:100%;filter:drop-shadow(0 2px 12px rgba(209,179,195,.25))}
+.loader-ring{position:absolute;inset:-12px;border-radius:50%;border:1px solid transparent;border-top-color:var(--rs);animation:loaderSpin 2.4s linear infinite;opacity:.3}
+@keyframes appleBreath{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.05);opacity:1}}
+@keyframes loaderSpin{to{transform:rotate(360deg)}}
+.loader-text{font-family:var(--fd);font-size:1.15rem;letter-spacing:.28em;color:var(--tm);font-weight:300;opacity:0;animation:fadeIn 1s .3s forwards}
+.loader-sub{font-family:var(--fu);font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:var(--tl);opacity:0;animation:fadeIn 1s .6s forwards;margin-top:-20px}
+
+/* ===== TOP BAR ===== */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:99;padding:22px 40px;display:flex;justify-content:center;transition:all .6s;background:rgba(254,254,252,.5);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.35)}
+.top-logo{font-family:var(--fd);font-size:1.2rem;font-weight:300;letter-spacing:.2em;color:var(--tm);text-decoration:none;transition:color .3s}
+.top-logo:hover{color:var(--tx)}
+
+/* ===== BACK LINK ===== */
+.back-link{position:fixed;top:22px;left:40px;z-index:100;font-family:var(--fu);font-size:.76rem;letter-spacing:.1em;color:var(--tl);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .3s}
+.back-link:hover{color:var(--tx)}
+.back-link svg{width:16px;height:16px;transition:transform .3s}
+.back-link:hover svg{transform:translateX(-3px)}
+
+/* ===== HERO AREA ===== */
+.support-hero{position:relative;padding:160px 24px 80px;text-align:center;overflow:hidden}
+.support-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--sf) 0%,var(--white) 40%,var(--ll) 70%,var(--white) 100%);z-index:0}
+.support-hero::after{content:'';position:absolute;top:-40%;left:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(240,198,217,.15),transparent 65%);z-index:0;animation:heroGlow 12s ease-in-out infinite alternate}
+@keyframes heroGlow{0%{opacity:.4;transform:scale(1) translate(0,0)}100%{opacity:.7;transform:scale(1.15) translate(5%,8%)}}
+.support-hero>*{position:relative;z-index:1}
+
+/* ===== PARTICLES ===== */
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.particle{position:absolute;border-radius:50%;background:rgba(157,192,204,.3);animation:pFloat linear infinite}
+@keyframes pFloat{0%{transform:translateY(100%) scale(0);opacity:0}20%{opacity:.6}80%{opacity:.3}100%{transform:translateY(-120%) scale(1.2);opacity:0}}
+
+/* ===== SECTION LABELS ===== */
+.s-label{font-family:var(--fu);font-size:.54rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.s-title{font-family:var(--fd);font-size:clamp(1.45rem,3vw,2.3rem);font-weight:300;letter-spacing:.1em;margin-bottom:16px;display:inline-block}
+.s-title .marker{background:linear-gradient(transparent 58%,rgba(209,179,195,.22) 58%,rgba(157,192,204,.18) 100%);padding:0 6px;border-radius:2px}
+.s-sub{font-family:var(--fa);font-style:italic;font-size:.88rem;color:var(--wm);letter-spacing:.06em;margin-top:-4px}
+
+/* ===== MESSAGE CARD ===== */
+.message-section{max-width:680px;margin:0 auto;padding:0 24px}
+.message-card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(253,245,249,.55));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(209,179,195,.25);border-radius:6px;padding:64px 52px 56px;box-shadow:0 12px 48px rgba(137,194,212,.08),0 0 0 1px rgba(255,255,255,.4) inset;text-align:left;line-height:2.1;margin-top:40px}
+.message-card::before,.message-card::after{content:'';position:absolute;width:28px;height:28px;border-color:rgba(209,179,195,.45);pointer-events:none}
+.message-card::before{top:14px;left:14px;border-top:1px solid;border-left:1px solid;border-top-left-radius:4px}
+.message-card::after{bottom:14px;right:14px;border-bottom:1px solid;border-right:1px solid;border-bottom-right-radius:4px}
+.letter-emblem{text-align:center;margin-bottom:10px;color:var(--wm);opacity:.75}
+.letter-emblem svg{width:48px;height:32px}
+.letter-head{text-align:center;font-family:var(--fa);font-style:italic;font-size:.8rem;color:var(--tl);letter-spacing:.12em;margin-bottom:32px;font-weight:400}
+.message-card p{font-size:.94rem;color:var(--tm);font-weight:300;margin-bottom:16px;word-break:keep-all;overflow-wrap:break-word}
+.message-card p:last-child{margin-bottom:0}
+.message-card .greeting{font-family:var(--fd);font-size:1.12rem;color:var(--tx);letter-spacing:.05em;margin-bottom:22px;font-weight:400}
+.message-card .sign{text-align:right;font-family:var(--fd);font-size:.92rem;color:var(--ac);letter-spacing:.08em;margin-top:32px}
+/* 「ビジター」を本文になじませる水彩ハイライト（ヒーローのmarkerと同系統） */
+.visitor-term{
+  font-family:inherit;
+  font-weight:500;
+  color:var(--tx);
+  padding:0 5px;
+  background:linear-gradient(transparent 58%,rgba(240,198,217,.38) 58%,rgba(196,176,216,.28) 100%);
+  border-radius:2px;
+}
+
+/* ===== BENEFITS ===== */
+.benefits{max-width:680px;margin:60px auto 0;padding:0 24px}
+.benefits-title{font-family:var(--fd);font-size:1.15rem;font-weight:400;letter-spacing:.14em;color:var(--tx);text-align:center;margin-bottom:28px}
+.benefits-title-en{display:block;font-family:var(--fa);font-style:italic;font-size:.68rem;color:var(--wm);letter-spacing:.12em;font-weight:300;margin-top:6px;text-transform:none}
+.benefit-list{display:grid;gap:14px}
+.benefit-item{display:flex;align-items:flex-start;gap:16px;padding:22px 26px;border-radius:12px;background:rgba(255,255,255,.45);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.45);transition:transform .3s,box-shadow .3s}
+.benefit-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(137,194,212,.08)}
+.benefit-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+.benefit-icon.discord{background:rgba(137,194,212,.12);color:var(--sd)}
+.benefit-icon.goods{background:rgba(236,228,243,.4);color:var(--ld)}
+.benefit-icon.content{background:rgba(240,198,217,.15);color:var(--wm)}
+.benefit-text{font-size:.9rem;color:var(--tm);font-weight:300;line-height:1.8;word-break:keep-all;overflow-wrap:break-word}
+.benefit-text strong{font-weight:500;color:var(--tx)}
+
+/* ===== PLAN CARD ===== */
+.plan-section{max-width:960px;margin:72px auto 0;padding:0 24px}
+.plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.plan-card{position:relative;display:flex;flex-direction:column;padding:36px 32px;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.65),rgba(250,249,252,.5));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(209,179,195,.15);box-shadow:0 12px 48px rgba(137,194,212,.08),0 0 0 1px rgba(255,255,255,.3) inset;overflow:hidden;transition:box-shadow .4s,transform .4s}
+.plan-card:hover{box-shadow:0 16px 56px rgba(137,194,212,.12),0 0 0 1px rgba(255,255,255,.4) inset;transform:translateY(-3px)}
+.plan-card.featured{border-color:rgba(157,192,204,.3);box-shadow:0 12px 48px rgba(137,194,212,.12),0 0 0 1px rgba(157,192,204,.15) inset}
+.plan-card::before{content:'';position:absolute;top:-50%;right:-30%;width:240px;height:240px;border-radius:50%;background:radial-gradient(ellipse,rgba(240,198,217,.08),transparent 70%);pointer-events:none}
+.plan-badge{position:absolute;top:14px;right:14px;font-family:var(--fu);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:12px;background:linear-gradient(135deg,var(--ac),var(--ld));color:var(--white);z-index:2}
+.plan-header{text-align:center;position:relative;padding-bottom:22px;margin-bottom:22px;border-bottom:1px dashed rgba(209,179,195,.2)}
+.plan-label{font-family:var(--fu);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--wm);margin-bottom:8px}
+.plan-name{font-family:var(--fd);font-size:1.5rem;font-weight:400;letter-spacing:.06em;color:var(--tx);margin-bottom:4px;white-space:nowrap}
+.plan-name-en{font-family:var(--fa);font-style:italic;font-size:.78rem;color:var(--tl);letter-spacing:.1em;margin-bottom:14px;font-weight:300}
+.plan-price{position:relative}
+.plan-price .amount{font-family:var(--fd);font-size:2rem;font-weight:300;color:var(--tx);letter-spacing:.02em}
+.plan-price .currency{font-family:var(--fu);font-size:.8rem;color:var(--tl);margin-right:3px}
+.plan-price .period{font-family:var(--fu);font-size:.7rem;color:var(--tl);letter-spacing:.05em}
+.plan-feats{list-style:none;padding:0;margin:0 0 28px;flex-grow:1}
+.plan-feats li{position:relative;padding:4px 0 4px 18px;font-family:var(--fb);font-size:.84rem;color:var(--tm);font-weight:300;line-height:1.85;margin-bottom:6px}
+.plan-feats li::before{content:'';position:absolute;left:0;top:.95em;width:10px;height:1px;background:linear-gradient(90deg,var(--ac),var(--ld))}
+.plan-feats li:last-child{margin-bottom:0}
+.plan-feats .soon{display:inline-block;font-family:var(--fu);font-size:.62rem;letter-spacing:.08em;color:var(--wm);background:rgba(240,198,217,.15);padding:1px 8px;border-radius:8px;margin-left:4px;vertical-align:middle;white-space:nowrap}
+.plan-feats .note{display:block;padding:6px 0 0 0;font-size:.72rem;color:var(--tl);line-height:1.7;font-weight:300}
+.plan-note{font-family:var(--fu);font-size:.68rem;color:var(--tl);letter-spacing:.06em;margin-bottom:32px;position:relative}
+
+/* ===== BOOST (one-time) ===== */
+.boost-section{max-width:620px;margin:40px auto 0;padding:0 24px}
+.boost-card{text-align:center;padding:48px 36px;border-radius:20px;background:rgba(255,255,255,.45);backdrop-filter:blur(12px);border:1px dashed rgba(209,179,195,.35);transition:border-color .3s,box-shadow .3s,transform .3s}
+.boost-card:hover{border-color:rgba(209,179,195,.55);box-shadow:0 12px 40px rgba(137,194,212,.1);transform:translateY(-2px)}
+.boost-title{font-family:var(--fd);font-size:1.6rem;font-weight:300;letter-spacing:.1em;color:var(--tx);margin-bottom:8px}
+.boost-sub{font-family:var(--fu);font-size:.72rem;color:var(--tl);letter-spacing:.1em;margin-bottom:28px;line-height:1.7}
+.boost-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 48px;border:none;border-radius:32px;background:linear-gradient(135deg,var(--wm),var(--ld));color:var(--white);font-family:var(--fu);font-size:.88rem;letter-spacing:.12em;font-weight:500;cursor:pointer;transition:all .4s cubic-bezier(.22,.61,.36,1);box-shadow:0 4px 20px rgba(209,179,195,.3)}
+.boost-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(209,179,195,.4)}
+.boost-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.boost-btn svg{width:18px;height:18px}
+/* Boost の注意書き */
+.boost-notice{display:flex;align-items:flex-start;justify-content:center;gap:10px;margin:28px auto 0;max-width:440px;padding:14px 18px;border-radius:10px;background:rgba(240,198,217,.08);border:1px solid rgba(209,179,195,.2);text-align:left}
+.boost-notice svg{flex-shrink:0;width:16px;height:16px;margin-top:2px;color:var(--wm);opacity:.8}
+.boost-notice p{font-family:var(--fb);font-size:.76rem;color:var(--tm);line-height:1.8;font-weight:300;margin:0;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word}
+.boost-notice strong{color:var(--tx);font-weight:500}
+@supports not (word-break: auto-phrase){
+  .boost-notice p{word-break:keep-all}
+}
+
+/* ===== CHECKOUT BUTTON ===== */
+.checkout-btn{position:relative;display:inline-flex;align-self:center;align-items:center;justify-content:center;gap:6px;padding:14px 36px;border:none;border-radius:40px;font-family:var(--fu);font-size:.82rem;letter-spacing:.1em;cursor:pointer;color:var(--white);background:linear-gradient(135deg,var(--ac),var(--ld));box-shadow:0 4px 18px rgba(157,192,204,.3);transition:all .4s cubic-bezier(.22,.61,.36,1);overflow:hidden;margin-top:auto}
+.checkout-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.checkout-btn::before{content:'';position:absolute;inset:0;border-radius:40px;background:linear-gradient(135deg,var(--ld),var(--wm));opacity:0;transition:opacity .4s}
+.checkout-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(157,192,204,.35)}
+.checkout-btn:hover::before{opacity:1}
+.checkout-btn span{position:relative;z-index:1}
+.checkout-btn svg{position:relative;z-index:1;width:16px;height:16px}
+.checkout-btn:active{transform:translateY(0)}
+
+/* ===== PAYMENT METHODS ===== */
+.payment-info{max-width:640px;margin:28px auto 0;padding:24px 28px;border-radius:16px;background:rgba(255,255,255,.4);backdrop-filter:blur(10px);border:1px solid rgba(209,179,195,.18);text-align:center}
+.payment-label{font-family:var(--fu);font-size:.7rem;letter-spacing:.18em;color:var(--tm);margin-bottom:14px;text-transform:uppercase;font-weight:500}
+.pay-methods{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:14px}
+.pay-chip{display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:32px;padding:0 10px;border-radius:6px;background:var(--white);border:1px solid rgba(137,194,212,.18);box-shadow:0 1px 3px rgba(137,194,212,.05);font-family:var(--fu);font-size:.66rem;font-weight:600;letter-spacing:.06em;color:var(--tm);transition:all .25s}
+.pay-chip:hover{border-color:rgba(157,192,204,.35);box-shadow:0 2px 8px rgba(137,194,212,.12)}
+.pay-chip span{display:inline-block}
+.pay-chip .jcb{background:linear-gradient(90deg,#0b3087 0%,#0b3087 33%,#b12028 33%,#b12028 66%,#009246 66%,#009246 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.pay-chip .gpay{display:inline-flex;align-items:center;gap:3px;color:#5f6368;font-weight:500}
+.pay-chip .gpay .g{font-weight:700;background:linear-gradient(90deg,#4285f4,#34a853 50%,#fbbc04 75%,#ea4335);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pay-chip .link-pay{color:#00d66f;font-weight:700;letter-spacing:.02em}
+.pay-chip svg{display:block}
+.payment-note{font-family:var(--fu);font-size:.68rem;color:var(--tl);letter-spacing:.05em;line-height:1.8;margin-top:6px}
+.payment-note strong{color:var(--tm);font-weight:600}
+
+/* ===== FAQ ===== */
+.faq-section{max-width:680px;margin:80px auto 0;padding:0 24px 120px}
+.faq-title{font-family:var(--fd);font-size:1.3rem;font-weight:300;letter-spacing:.1em;text-align:center;margin-bottom:36px;color:var(--tx)}
+.faq-item{padding:22px 0;border-bottom:1px solid rgba(137,194,212,.08)}
+.faq-item:first-child{border-top:1px solid rgba(137,194,212,.08)}
+.faq-q{font-family:var(--fu);font-size:.78rem;letter-spacing:.06em;color:var(--tx);font-weight:500;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.faq-q::before{content:'Q';font-family:var(--fd);font-size:.9rem;color:var(--ac);flex-shrink:0;font-weight:400;line-height:1.4}
+.faq-a{font-size:.88rem;color:var(--tm);font-weight:300;line-height:1.9;padding-left:24px}
+
+/* ===== DIVIDER ===== */
+.sec-divider{display:flex;align-items:center;justify-content:center;padding:10px 0;gap:14px;margin:48px 0}
+.sec-divider .dl{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--lm))}
+.sec-divider .dl:last-child{background:linear-gradient(90deg,var(--lm),transparent)}
+.sec-divider .dd{width:4px;height:4px;background:var(--wm);border-radius:50%;opacity:.3}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:60px 24px 40px;background:linear-gradient(180deg,var(--white),var(--sf))}
+.footer-logo{font-family:var(--fd);font-size:1.4rem;letter-spacing:.25em;color:var(--tl)}
+.footer-line{width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:14px auto}
+footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(--tl);opacity:.5}
+.footer-links{margin-top:16px;margin-bottom:10px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.footer-links a{font-family:var(--fu);font-size:.7rem;letter-spacing:.1em;color:var(--tl);text-decoration:none;transition:color .3s;opacity:.7}
+.footer-links a:hover{color:var(--tx);opacity:1}
+
+/* ===== REVEAL ANIM ===== */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.22,.61,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.22s}.rd3{transition-delay:.34s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ===== RESULT OVERLAY ===== */
+.result-overlay{position:fixed;inset:0;z-index:9999;background:rgba(44,54,64,.15);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;opacity:0;animation:fadeIn .5s forwards}
+.result-box{text-align:center;max-width:400px;padding:48px 40px;background:rgba(255,255,255,.75);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.5);border-radius:20px;box-shadow:0 20px 60px rgba(137,194,212,.1);transform:translateY(20px);animation:fadeUp .6s .1s forwards;opacity:0}
+.result-icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.result-icon.success{background:linear-gradient(135deg,var(--ac),var(--ld))}
+.result-icon.cancel{background:linear-gradient(135deg,var(--rs),var(--wm))}
+.result-icon svg{width:28px;height:28px;color:var(--white)}
+.result-title{font-family:var(--fd);font-size:1.3rem;font-weight:300;letter-spacing:.08em;margin-bottom:12px}
+.result-desc{font-size:.86rem;color:var(--tm);font-weight:300;line-height:1.9;margin-bottom:28px}
+.result-btn{display:inline-block;padding:12px 36px;border:none;border-radius:28px;font-family:var(--fu);font-size:.76rem;letter-spacing:.1em;cursor:pointer;color:var(--white);background:linear-gradient(135deg,var(--ac),var(--ld));box-shadow:0 4px 16px rgba(157,192,204,.25);transition:all .3s;text-decoration:none}
+.result-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(157,192,204,.3)}
+
+/* ===== RIPPLE ===== */
+.ripple{position:fixed;pointer-events:none;width:8px;height:8px;border-radius:50%;border:1px solid rgba(137,194,212,.35);z-index:9998;opacity:0;animation:ripO .8s forwards}
+@keyframes ripO{0%{opacity:.25;transform:scale(0)}100%{opacity:0;transform:scale(3)}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .top-bar{padding:16px 20px}
+  .back-link{left:16px;top:16px}
+  .support-hero{padding:130px 18px 60px}
+  .message-card{padding:32px 26px}
+  .plan-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
+  .plan-card{padding:32px 26px}
+  .benefit-item{padding:18px 20px}
+  .faq-section{padding:0 18px 80px}
+}
+
+/* ── 日本語の改行を自然な位置で行う（モダンブラウザ） ── */
+.message-card p, .message-card .greeting, .benefit-text,
+.plan-feats li, .plan-feats .note,
+.boost-sub, .faq-q, .faq-a{
+  word-break:auto-phrase;
+  line-break:strict;
+  overflow-wrap:break-word;
+  text-wrap:pretty;
+}
+/* auto-phrase 未対応ブラウザ用のフォールバック */
+@supports not (word-break: auto-phrase){
+  .message-card p, .message-card .greeting, .benefit-text,
+  .plan-feats li, .plan-feats .note,
+  .boost-sub, .faq-q, .faq-a{
+    word-break:keep-all;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-apple">
+    <div class="loader-ring"></div>
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#89c2d4"/>
+          <stop offset="50%" stop-color="#c4b0d8"/>
+          <stop offset="100%" stop-color="#f0c6d9"/>
+        </linearGradient>
+      </defs>
+      <path d="M50 12 Q49 7 48.5 3" stroke="#8a9dad" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".45"/>
+      <path d="M49 6 C45 1 37 0 37 4 C37 7.5 43 8 48 5.5" fill="url(#appleGrad)" opacity=".6">
+        <animateTransform attributeName="transform" type="rotate" values="-3 48 6;5 48 6;-3 48 6" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M50 18 C46 15 38 13 28 16 C18 19 10 30 8 44 C6 58 10 72 20 82 C28 90 38 94 44 96 Q48 97 50 93 Q52 97 56 96 C62 94 72 90 80 82 C90 72 94 58 92 44 C90 30 82 19 72 16 C62 13 54 15 50 18Z" fill="url(#appleGrad)" opacity=".85"/>
+    </svg>
+  </div>
+  <p class="loader-text">GrimLily</p>
+  <p class="loader-sub">Loading</p>
+</div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="/" class="top-logo">GrimLily</a>
+</div>
+<a href="/" class="back-link">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
+  Back
+</a>
+
+<!-- HERO -->
+<section class="support-hero">
+  <div class="particles" id="particles"></div>
+  <div class="reveal">
+    <p class="s-label">Invitation</p>
+    <h1 class="s-title"><span class="marker">秘密の庭への招待状</span></h1>
+    <p class="s-sub">An invitation to the secret garden</p>
+  </div>
+
+  <!-- MESSAGE -->
+  <div class="message-section reveal rd1">
+    <div class="message-card">
+      <!-- 便箋の装飾：上部の小さな植物紋 -->
+      <div class="letter-emblem" aria-hidden="true">
+        <svg viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M30 4 C 24 12, 20 18, 16 22 M30 4 C 36 12, 40 18, 44 22 M30 4 L 30 36" opacity=".7"/>
+          <path d="M18 18 C 22 20, 26 22, 30 22 M42 18 C 38 20, 34 22, 30 22" opacity=".5"/>
+          <path d="M22 28 C 26 30, 28 32, 30 34 M38 28 C 34 30, 32 32, 30 34" opacity=".4"/>
+          <circle cx="30" cy="22" r="1.5" fill="currentColor" opacity=".6"/>
+        </svg>
+      </div>
+      <p class="letter-head">— GrimLily の庭より —</p>
+
+      <p class="greeting">扉を見つけてくださって、ありがとうございます。</p>
+      <p>この先には、人目に触れない制作の裏側や、まだ形になる前の想いが、ひっそりと息づいています。</p>
+      <p><span class="visitor-term">ビジター</span>になっていただくと、<strong>限定の Discord サーバー</strong>にて、活動日誌や進捗のささやかな物語を、いちばん近い場所でお届けします。</p>
+      <p>いただいたお気持ちは、サークルの発展のために大切に使わせていただきます。</p>
+      <p>どうぞ、ごゆっくりとお過ごしくださいませ。</p>
+
+      <p class="sign">— GrimLily</p>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<div class="benefits reveal rd2">
+  <p class="benefits-title">ビジター特典 <span class="benefits-title-en">— Visitor Benefits —</span></p>
+  <div class="benefit-list">
+    <div class="benefit-item">
+      <div class="benefit-icon discord">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+      </div>
+      <div class="benefit-text"><strong>Discord コミュニティへ招待</strong><br>ビジター専用のDiscordサーバーで、活動日誌や制作の裏話、進捗情報をリアルタイムで共有します。</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon goods">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-2-4H5L3 8m18 0v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8m18 0H3m9 4v4m-2-4h4"/></svg>
+      </div>
+      <div class="benefit-text"><strong>限定グッズ・コンテンツ</strong><span style="display:inline-block;font-family:var(--fu);font-size:.58rem;letter-spacing:.08em;color:var(--wm);background:rgba(240,198,217,.15);padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle">準備中</span><br>ビジター限定のグッズ販売や特典コンテンツを、これから順次追加していく予定です。</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon content">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      </div>
+      <div class="benefit-text"><strong>サークルの制作活動を支援</strong><br>いただいたお気持ちは、制作環境の整備や新しい作品づくりに大切に使わせていただきます。</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
+
+<!-- PLANS -->
+<div class="plan-section reveal rd3">
+  <div class="plan-grid">
+    <!-- Plan 1 -->
+    <div class="plan-card">
+      <div class="plan-header">
+        <p class="plan-label">Monthly</p>
+        <h2 class="plan-name">クォーツ</h2>
+        <p class="plan-name-en">Quartz</p>
+        <div class="plan-price">
+          <span class="currency">¥</span><span class="amount">500</span>
+          <span class="period">/ 月</span>
+        </div>
+      </div>
+      <ul class="plan-feats">
+        <li>活動日誌の閲覧（Discord）、スタンプ、コメント</li>
+      </ul>
+      <button type="button" class="checkout-btn" data-checkout-plan="Quartz">
+        <span>クォーツになる</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Plan 2 -->
+    <div class="plan-card featured">
+      <div class="plan-badge">おすすめ</div>
+      <div class="plan-header">
+        <p class="plan-label">Monthly</p>
+        <h2 class="plan-name">アメジスト</h2>
+        <p class="plan-name-en">Amethyst</p>
+        <div class="plan-price">
+          <span class="currency">¥</span><span class="amount">1,500</span>
+          <span class="period">/ 月</span>
+        </div>
+      </div>
+      <ul class="plan-feats">
+        <li>活動日誌の閲覧（Discord）、スタンプ、コメント</li>
+        <li>作品のスタッフロールに支援者としてお名前の掲載</li>
+        <li>リリース前の体験版の先行プレイ権<span class="soon">準備中</span></li>
+      </ul>
+      <button type="button" class="checkout-btn" data-checkout-plan="Amethyst">
+        <span>アメジストになる</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Plan 3 -->
+    <div class="plan-card">
+      <div class="plan-header">
+        <p class="plan-label">Monthly</p>
+        <h2 class="plan-name">サファイア</h2>
+        <p class="plan-name-en">Sapphire</p>
+        <div class="plan-price">
+          <span class="currency">¥</span><span class="amount">5,000</span>
+          <span class="period">/ 月</span>
+        </div>
+      </div>
+      <ul class="plan-feats">
+        <li>活動日誌の閲覧（Discord）、スタンプ、コメント</li>
+        <li>作品のスタッフロールに支援者としてお名前の掲載</li>
+        <li>リリース前の体験版の先行プレイ権<span class="soon">準備中</span></li>
+        <li>ゲームにちなんだ限定グッズをご購入いただけます<span class="soon">準備中</span></li>
+      </ul>
+      <button type="button" class="checkout-btn" data-checkout-plan="Sapphire">
+        <span>サファイアになる</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Plan 4 -->
+    <div class="plan-card">
+      <div class="plan-header">
+        <p class="plan-label">Monthly</p>
+        <h2 class="plan-name">ダイヤモンド・リリィ</h2>
+        <p class="plan-name-en">Diamond Lily</p>
+        <div class="plan-price">
+          <span class="currency">¥</span><span class="amount">10,000</span>
+          <span class="period">/ 月</span>
+        </div>
+      </div>
+      <ul class="plan-feats">
+        <li>活動日誌の閲覧（Discord）、スタンプ、コメント</li>
+        <li>作品のスタッフロールに支援者としてお名前の掲載</li>
+        <li>ゲームにちなんだ限定グッズをご購入いただけます<span class="soon">準備中</span></li>
+        <li>リリース前の体験版の先行プレイ権<span class="soon">準備中</span></li>
+        <li>12ヶ月継続記念として、希望キャラクターのサイン入り色紙（主宰シャルノスによる直筆）<span class="note">※ 欲しいサインのある関係者がいる場合は、その方にも書いてもらえるよう交渉いたします。</span></li>
+      </ul>
+      <button type="button" class="checkout-btn" data-checkout-plan="Diamond">
+        <span>ダイヤモンド・リリィになる</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- 対応決済 -->
+  <div class="payment-info">
+    <p class="payment-label">月額プラン 対応決済</p>
+    <div class="pay-methods">
+      <div class="pay-chip" title="Visa"><span>VISA</span></div>
+      <div class="pay-chip" title="Mastercard">
+        <svg viewBox="0 0 40 24" width="34" height="20"><circle cx="16" cy="12" r="7" fill="rgba(219,100,77,.45)"/><circle cx="24" cy="12" r="7" fill="rgba(209,173,63,.5)"/></svg>
+      </div>
+      <div class="pay-chip" title="JCB"><span class="jcb">JCB</span></div>
+      <div class="pay-chip" title="American Express"><span>AMEX</span></div>
+      <div class="pay-chip" title="Apple Pay">
+        <svg viewBox="0 0 40 24" width="34" height="20" fill="currentColor"><path d="M11.8 8.5c.4-.5.7-1.2.6-1.9-.6 0-1.3.4-1.7.9-.4.4-.7 1.1-.6 1.8.7 0 1.3-.3 1.7-.8zm.6.9c-1 0-1.8.6-2.3.6-.5 0-1.2-.5-2-.5-1 0-2 .6-2.5 1.5-1.1 1.9-.3 4.7.8 6.3.5.7 1.1 1.6 1.9 1.6.8 0 1-.5 2-.5s1.2.5 2 .5 1.3-.8 1.8-1.6c.6-.8.8-1.7.8-1.7s-1.6-.6-1.6-2.4c0-1.5 1.3-2.3 1.3-2.3s-.7-1.1-2.2-1.5zM21 7.5v10h1.5v-3.4h2.1c2 0 3.3-1.3 3.3-3.3s-1.3-3.3-3.2-3.3H21zm1.5 1.3h1.7c1.3 0 2 .7 2 2s-.7 2-2 2h-1.7v-4zm7.8 8.8c1 0 1.9-.5 2.3-1.3v1.2h1.4V12c0-1.4-1.1-2.3-2.9-2.3-1.6 0-2.8.9-2.9 2.2h1.4c.1-.6.7-1 1.5-1 1 0 1.5.5 1.5 1.2v.6l-2 .1c-1.8.1-2.8.9-2.8 2.2 0 1.3 1 2.2 2.5 2.2zm.4-1.2c-.8 0-1.4-.4-1.4-1.1 0-.7.5-1.1 1.5-1.2l1.8-.1v.6c0 1.1-.9 1.8-1.9 1.8zM37 20c1.6 0 2.3-.6 3-2.3l2.8-7.8h-1.6l-1.9 6.1h0l-1.9-6.1h-1.6l2.7 7.5-.1.5c-.2.8-.6 1-1.3 1-.1 0-.4 0-.5 0v1.2c.1 0 .5 0 .5 0z"/></svg>
+      </div>
+      <div class="pay-chip" title="Google Pay"><span class="gpay"><span class="g">G</span> Pay</span></div>
+      <div class="pay-chip" title="Link"><span class="link-pay">Link</span></div>
+    </div>
+    <p class="payment-note">※ Boost では上記に加えて<strong>銀行振込</strong>もご利用いただけます</p>
+  </div>
+</div>
+
+<!-- BOOST (都度支援) -->
+<div class="boost-section reveal">
+  <div class="boost-card">
+    <p class="boost-title">Boost</p>
+    <p class="boost-sub">お好きな金額で、お好きなタイミングで ─ 何度でも応援できます</p>
+    <button type="button" class="boost-btn" data-checkout-plan="Boost">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      <span>金額を選んで応援する</span>
+    </button>
+    <div class="boost-notice">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/></svg>
+      <p>Boostはその都度完結する応援です。<br>上記月額プランのような<strong>ビジター特典（Discord招待・限定コンテンツなど）はありません</strong>。</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section reveal">
+  <div class="sec-divider"><span class="dl"></span><span class="dd"></span><span class="dl"></span></div>
+  <h2 class="faq-title">よくあるご質問</h2>
+  <div class="faq-item">
+    <p class="faq-q">解約はいつでもできますか？</p>
+    <p class="faq-a">はい、いつでも解約できます。解約後も当月末までビジター特典をご利用いただけます。</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">銀行振込の場合、いつ反映されますか？</p>
+    <p class="faq-a">お振込み確認後、通常1〜2営業日以内に反映されます。確認でき次第、Discord の招待リンクをお送りします。</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">決済情報のセキュリティは大丈夫ですか？</p>
+    <p class="faq-a">決済処理はすべて Stripe を通じて行われます。カード情報は当サークルのサーバーには一切保存されません。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">GrimLily</div>
+  <div class="footer-line"></div>
+<div class="footer-links">
+    <a href="/tokusho.html">事業者情報</a>
+    <a href="/privacy.html">プライバシーポリシー</a>
+</div>
+  <p>&copy; GrimLily. All Rights Reserved.</p>
+</footer>
+
+<script src="./support.page.js" defer></script>
+</body>
+</html>
