@@ -303,7 +303,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hi
 
 /* ===== HERO ===== */
 #hero{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;margin-left:-94px;padding-left:94px}
-.hero-bg{position:absolute;inset:-5%;background-image:url('https://sharnoth0.github.io/images/告知イラストラフイメージ.png');background-size:cover;background-position:center 12%;animation:heroB 28s ease-in-out infinite alternate}
+.hero-bg{position:absolute;inset:-5%;background-image:url('img/top.png');background-size:cover;background-position:center 12%;animation:heroB 28s ease-in-out infinite alternate}
 @keyframes heroB{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.06) translate(-0.5%,-0.3%)}100%{transform:scale(1.1) translate(0.3%,-0.5%)}}
 .hero-fade{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(44,54,64,.03) 0%,transparent 20%,transparent 40%,rgba(250,249,252,.2) 55%,rgba(250,249,252,.65) 72%,rgba(254,254,254,.92) 84%,var(--white) 94%);}
@@ -566,9 +566,81 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   .cursor-wrap{display:none}
   body.has-custom-cursor,body.has-custom-cursor a,body.has-custom-cursor button{cursor:auto}
 }
+
+/* ===== BGM モーダル ===== */
+.bgm-modal-ov{position:fixed;inset:0;background:rgba(254,254,254,.55);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);z-index:10000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.bgm-modal-ov.show{opacity:1;visibility:visible}
+.bgm-modal{background:linear-gradient(180deg,#fefefe 0%,#faf9fc 100%);border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 80px rgba(44,54,64,.12),0 0 0 1px rgba(255,255,255,.5) inset;border-radius:6px;max-width:420px;width:100%;padding:48px 36px 36px;text-align:center;transform:translateY(20px) scale(.96);opacity:0;transition:transform .55s cubic-bezier(.22,.61,.36,1) .1s,opacity .55s .1s}
+.bgm-modal-ov.show .bgm-modal{transform:translateY(0) scale(1);opacity:1}
+.bgm-modal-icon{width:48px;height:48px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,rgba(240,198,217,.18),rgba(196,176,216,.14));color:var(--ac)}
+.bgm-modal-icon svg{width:22px;height:22px;stroke-width:1.5}
+.bgm-modal-label{font-family:var(--fs);font-size:.62rem;letter-spacing:.35em;color:var(--wm);text-transform:uppercase;margin-bottom:14px;font-weight:500}
+.bgm-modal-title{font-family:var(--fb);font-size:1.12rem;font-weight:300;letter-spacing:.1em;color:var(--tx);line-height:1.8;margin-bottom:8px;word-break:keep-all;overflow-wrap:break-word}
+.bgm-modal-desc{font-family:var(--fb);font-size:.78rem;color:var(--tm);line-height:2;font-weight:300;margin-bottom:32px;word-break:keep-all;overflow-wrap:break-word}
+.bgm-modal-divider{width:36px;height:1px;margin:0 auto 28px;background:linear-gradient(90deg,transparent,var(--ac),var(--ld),transparent)}
+.bgm-modal-btns{display:flex;gap:12px;flex-direction:column}
+.bgm-btn{font-family:var(--fb);font-size:.86rem;font-weight:300;letter-spacing:.18em;padding:14px 24px;border-radius:999px;border:1px solid;cursor:pointer;transition:all .35s cubic-bezier(.22,.61,.36,1);background:transparent}
+.bgm-btn-primary{background:linear-gradient(135deg,rgba(157,192,204,.85),rgba(196,176,216,.85));color:var(--white);border-color:transparent;box-shadow:0 6px 20px rgba(137,194,212,.18)}
+.bgm-btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(137,194,212,.28)}
+.bgm-btn-ghost{color:var(--tm);border-color:rgba(209,179,195,.32)}
+.bgm-btn-ghost:hover{background:rgba(240,198,217,.06);border-color:var(--wm);color:var(--tx)}
+
+/* ===== 音量コントロール（ヒーローに固定） ===== */
+.bgm-ctrl{position:fixed;right:24px;bottom:24px;z-index:90;display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(254,254,254,.62);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.5);border-radius:999px;box-shadow:0 8px 28px rgba(44,54,64,.1);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .5s,visibility .5s,transform .5s}
+.bgm-ctrl.show{opacity:1;visibility:visible;transform:translateY(0)}
+.bgm-ctrl-toggle{width:32px;height:32px;border-radius:50%;border:none;background:linear-gradient(135deg,rgba(240,198,217,.4),rgba(196,176,216,.32));color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;flex-shrink:0;padding:0}
+.bgm-ctrl-toggle:hover{background:linear-gradient(135deg,rgba(240,198,217,.6),rgba(196,176,216,.5));transform:scale(1.06)}
+.bgm-ctrl-toggle svg{width:14px;height:14px;stroke-width:1.8}
+.bgm-ctrl-slider{appearance:none;-webkit-appearance:none;width:80px;height:3px;background:linear-gradient(90deg,var(--ac) 0%,var(--ac) var(--vol,60%),rgba(209,179,195,.25) var(--vol,60%),rgba(209,179,195,.25) 100%);border-radius:999px;outline:none;cursor:pointer}
+.bgm-ctrl-slider::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--white);box-shadow:0 0 0 1px var(--ac),0 2px 6px rgba(44,54,64,.15);cursor:pointer;transition:transform .2s}
+.bgm-ctrl-slider::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.bgm-ctrl-slider::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--white);border:1px solid var(--ac);box-shadow:0 2px 6px rgba(44,54,64,.15);cursor:pointer;transition:transform .2s}
+.bgm-ctrl-slider::-moz-range-thumb:hover{transform:scale(1.2)}
+@media(max-width:768px){
+  .bgm-ctrl{right:16px;bottom:16px;padding:8px 12px;gap:8px}
+  .bgm-ctrl-toggle{width:28px;height:28px}
+  .bgm-ctrl-toggle svg{width:12px;height:12px}
+  .bgm-ctrl-slider{width:60px}
+}
 </style>
 </head>
 <body>
+
+<!-- BGM 再生確認モーダル -->
+<div class="bgm-modal-ov" id="bgmModal" role="dialog" aria-modal="true" aria-labelledby="bgmModalTitle" aria-describedby="bgmModalDesc">
+  <div class="bgm-modal" role="document">
+    <div class="bgm-modal-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"/>
+        <circle cx="6" cy="18" r="3"/>
+        <circle cx="18" cy="16" r="3"/>
+      </svg>
+    </div>
+    <p class="bgm-modal-label">Sound · Optional</p>
+    <h2 class="bgm-modal-title" id="bgmModalTitle">音楽を再生しますか？</h2>
+    <p class="bgm-modal-desc" id="bgmModalDesc">このサイトでは BGM をお楽しみいただけます。<br>音量はあとから調整・停止できます。</p>
+    <div class="bgm-modal-divider"></div>
+    <div class="bgm-modal-btns">
+      <button type="button" class="bgm-btn bgm-btn-primary" id="bgmAccept">音楽を再生する</button>
+      <button type="button" class="bgm-btn bgm-btn-ghost" id="bgmDecline">音を出さずに見る</button>
+    </div>
+  </div>
+</div>
+
+<!-- BGM 音量コントロール（モーダルでYesを押すと表示される） -->
+<div class="bgm-ctrl" id="bgmCtrl" role="group" aria-label="BGM 音量コントロール">
+  <button type="button" class="bgm-ctrl-toggle" id="bgmToggle" aria-label="BGM をミュート / 再生">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" id="bgmIcon">
+      <path d="M11 5L6 9H2v6h4l5 4z"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
+  <input type="range" class="bgm-ctrl-slider" id="bgmVolume" min="0" max="100" value="60" aria-label="音量">
+</div>
+
+<!-- BGM オーディオ要素 -->
+<audio id="bgmAudio" src="BGM/thema1.mp3" preload="auto" loop></audio>
 
 <!-- カスタムカーソル（星／デスクトップのみ） -->
 <div class="cursor-wrap" id="cursorWrap" aria-hidden="true">
@@ -822,103 +894,7 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
 
 <footer><div class="footer-logo">GrimLily</div><div class="footer-line"></div><p>&copy; GrimLily. All Rights Reserved.</p></footer>
 
-<script>
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),800));
-const tb=document.getElementById('topBar');
-const sb=document.getElementById('sidebar');
-window.addEventListener('scroll',()=>{
-  if(tb) tb.classList.toggle('scrolled',scrollY>80);
-  if(sb) sb.classList.toggle('scrolled',scrollY>80);
-},{passive:true});
-const secs=document.querySelectorAll('section[id]');
-const bna=document.querySelectorAll('.sb-link[href^="#"]');
-secs.forEach(s=>new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)bna.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))})},{threshold:.12,rootMargin:'-8% 0px -55% 0px'}).observe(s));
-const mo=document.getElementById('modalOv');
-document.getElementById('navGuideBtn').addEventListener('click',()=>mo.classList.add('open'));
-document.getElementById('closeModal').addEventListener('click',()=>mo.classList.remove('open'));
-mo.addEventListener('click',e=>{if(e.target===mo)mo.classList.remove('open')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')mo.classList.remove('open')});
-document.querySelectorAll('.reveal').forEach(r=>new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.06}).observe(r));
-(function(){const c=document.getElementById('sakura');for(let i=0;i<12;i++){const p=document.createElement('div');p.className='petal';const s=Math.random()*11+5;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;--po:${Math.random()*.14+.06};animation-duration:${Math.random()*8+11}s;animation-delay:${Math.random()*10+4}s;`;c.appendChild(p)}})();
-(function(){const c=document.getElementById('heroParticles');for(let i=0;i<18;i++){const p=document.createElement('div');p.className='h-particle';const s=Math.random()*2+1.5;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*8+10}s;animation-delay:${Math.random()*12}s;`;c.appendChild(p)}})();
-const pu=encodeURIComponent(location.href),pt=encodeURIComponent('GrimLily - タイトル未定 公式サイト');
-document.getElementById('shareX').href='https://twitter.com/intent/tweet?url='+pu+'&text='+pt;
-document.getElementById('shareLine').href='https://social-plugins.line.me/lineit/share?url='+pu;
-
-/* ── 星カスタムカーソル（デスクトップのみ） ── */
-if(matchMedia('(pointer:fine)').matches && !matchMedia('(hover:none)').matches){
-  const star = document.getElementById('cursorStar');
-  const dot  = document.getElementById('cursorDot');
-  const wrap = document.getElementById('cursorWrap');
-  document.body.classList.add('has-custom-cursor');
-
-  // 現在のマウス位置
-  let mx = -100, my = -100;   // 初期は画面外（マウスが動くまで見えない）
-  // 星の追従位置（少し遅れて追いつく）
-  let sx = -100, sy = -100;
-  let tracking = false;
-
-  // マウス移動で位置を記録し、requestAnimationFrame ループを開始
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    // ドット（中心光点）は位置変更と同時に即座に動かす
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-    if(!tracking){
-      tracking = true;
-      // 初回は星を一気にマウス位置へ移動（開始遅延防止）
-      sx = mx; sy = my;
-      star.style.left = sx + 'px';
-      star.style.top  = sy + 'px';
-      requestAnimationFrame(animate);
-    }
-  }, { passive: true });
-
-  // 星の位置を滑らかに更新（機敏なイージング）
-  function animate(){
-    sx += (mx - sx) * 0.35;
-    sy += (my - sy) * 0.35;
-    // 微誤差をスナップ
-    if(Math.abs(mx - sx) < 0.2) sx = mx;
-    if(Math.abs(my - sy) < 0.2) sy = my;
-    star.style.left = sx + 'px';
-    star.style.top  = sy + 'px';
-    requestAnimationFrame(animate);
-  }
-
-  // hover判定（クリック可能要素）
-  const hoverSelector = 'a,button,input,textarea,select,[role="button"]';
-  document.addEventListener('mouseover', e => {
-    if(e.target.closest(hoverSelector)){
-      star.classList.add('hover');
-      dot.classList.add('hover');
-    }
-  });
-  document.addEventListener('mouseout', e => {
-    if(e.target.closest(hoverSelector) && !e.relatedTarget?.closest(hoverSelector)){
-      star.classList.remove('hover');
-      dot.classList.remove('hover');
-    }
-  });
-
-  // クリック時のきらめき縮み
-  document.addEventListener('mousedown', () => star.classList.add('click'));
-  document.addEventListener('mouseup',   () => star.classList.remove('click'));
-
-  // ウィンドウ外で透明化
-  document.addEventListener('mouseleave', () => {
-    star.style.opacity = '0';
-    dot.style.opacity  = '0';
-  });
-  document.addEventListener('mouseenter', () => {
-    star.style.opacity = '1';
-    dot.style.opacity  = '1';
-  });
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(!h||h==='#')return;const t=document.querySelector(h);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}}));
-</script>
+<script src="script.js" defer></script>
 
 
 </body>
