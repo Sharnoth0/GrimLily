@@ -1,6 +1,9 @@
+const API_BASE = 'https://grimlily.grenadine0syrup.workers.dev';
+const CONTACT_ENDPOINT = `${API_BASE}/contact`;
 const DISCLOSURE_VALUE = '事業者情報の確認';
 const LAST_SUBMIT_KEY = 'grimlily:tokusho-last-submit';
 let lastFocusedElement = null;
+let turnstileWidgetId = null;
 
 function showToast(message, type = 'info', duration = 4500) {
   document.querySelectorAll('.toast').forEach((existing) => existing.remove());
@@ -33,7 +36,6 @@ const messageField = document.getElementById('ct_message');
 const nameField = document.getElementById('ct_name');
 const nameHint = document.getElementById('name_hint');
 const emailHint = document.getElementById('email_hint');
-const subjectField = document.getElementById('ct_subject');
 const mLabelTxt = document.getElementById('m_label_txt');
 const mSubTxt = document.getElementById('m_sub_txt');
 const roleSelect = document.getElementById('dc_role');
@@ -47,14 +49,14 @@ const contactForm = document.getElementById('contactForm');
 const thanksTitle = document.getElementById('thanks_title');
 const thanksSub = document.getElementById('thanks_sub');
 const thanksMsg = document.getElementById('thanks_msg');
-const captchaContainer = document.querySelector('.h-captcha');
+const captchaContainer = document.querySelector('.cf-turnstile');
 
 // このスクリプトは tokusho.html 専用。必要な要素が揃っていないページでは早期終了する
 const requiredElements = [
   typeSelect, contactModal, thankyouModal, contactTitle,
   disclosureSec, disclosureAgree, disclosureNotice,
   contentLabel, contentHint, messageField, nameField, nameHint,
-  emailHint, subjectField, mLabelTxt, mSubTxt, roleSelect, planLabelTxt,
+  emailHint, mLabelTxt, mSubTxt, roleSelect, planLabelTxt,
   dateFieldWrap, stripeFieldWrap, stripeField, customerAgree,
   contactForm, thanksTitle, thanksSub, thanksMsg,
 ];
@@ -79,14 +81,44 @@ function focusFirstElement(container) {
 }
 
 function resetCaptcha() {
-  if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') {
+  if (window.turnstile && typeof window.turnstile.reset === 'function') {
     try {
-      window.hcaptcha.reset();
+      if (turnstileWidgetId !== null) {
+        window.turnstile.reset(turnstileWidgetId);
+      } else {
+        window.turnstile.reset();
+      }
     } catch (error) {
-      console.warn('hCaptcha reset failed:', error);
+      console.warn('Turnstile reset failed:', error);
     }
   }
 }
+
+function getTurnstileToken() {
+  if (window.turnstile && typeof window.turnstile.getResponse === 'function') {
+    try {
+      const token = turnstileWidgetId !== null
+        ? window.turnstile.getResponse(turnstileWidgetId)
+        : window.turnstile.getResponse();
+      return token || '';
+    } catch (error) {
+      console.warn('Turnstile getResponse failed:', error);
+      return '';
+    }
+  }
+  return '';
+}
+
+// Turnstileコールバック（HTMLのdata-callback属性で参照）
+window.onTurnstileSuccess = function () {
+  // 認証成功時の処理（特に何もしないが、フックポイントとして残す）
+};
+window.onTurnstileExpired = function () {
+  showToast('認証の有効期限が切れました。もう一度認証してください。', 'warn');
+};
+window.onTurnstileError = function () {
+  showToast('認証に失敗しました。ページを再読み込みしてください。', 'error');
+};
 
 function openModal(id, preselectType = '') {
   const modal = document.getElementById(id);
@@ -175,7 +207,6 @@ function setDisclosureCopy(mode) {
 
   nameHint.classList.add('hint-warn');
   nameField.placeholder = '例：山田 太郎';
-  subjectField.value = '【GrimLily】事業者情報の確認依頼';
 }
 
 function setDefaultCopy() {
@@ -189,7 +220,6 @@ function setDefaultCopy() {
   nameHint.classList.remove('hint-warn');
   nameField.placeholder = '';
   emailHint.textContent = 'ご返信はこちらのメールアドレス宛にお送りいたします。';
-  subjectField.value = typeSelect.value ? `【GrimLily】お問い合わせ - ${typeSelect.value}` : '【GrimLily】お問い合わせ';
 }
 
 function updateDisclosureRole() {
@@ -265,8 +295,7 @@ function trimFieldValue(field) {
 }
 
 function hasCaptchaToken() {
-  const responseField = contactForm.querySelector('textarea[name="h-captcha-response"]');
-  return Boolean(responseField && responseField.value.trim());
+  return Boolean(getTurnstileToken());
 }
 
 function validateDisclosureRequest() {
@@ -392,10 +421,41 @@ if (contactForm) {
       return;
     }
 
-    if (!hasCaptchaToken()) {
+    const turnstileToken = getTurnstileToken();
+    if (!turnstileToken) {
       showToast('送信前に認証を完了してください。', 'warn');
       captchaContainer?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
+    }
+
+    // 送信ペイロード組み立て
+    const emailField = document.getElementById('ct_email');
+    const planField = document.getElementById('dc_plan');
+    const botcheckField = document.getElementById('ct_botcheck');
+
+    const payload = {
+      type: typeSelect.value || '',
+      name: nameField.value || '',
+      email: emailField ? emailField.value : '',
+      message: messageField.value || '',
+      turnstileToken,
+      botcheck: botcheckField ? botcheckField.value : '',
+    };
+
+    if (isDisclosure) {
+      payload.role = roleSelect.value || '';
+      payload.plan = planField ? planField.value : '';
+      const isCustomer = payload.role === 'customer';
+      if (isCustomer) {
+        payload.date = dateField ? dateField.value : '';
+        payload.stripeId = stripeField ? stripeField.value : '';
+      }
+      payload.items = Array.from(
+        contactForm.querySelectorAll('input[name="確認希望情報"]:checked')
+      ).map((el) => el.value);
+      payload.agreements = Array.from(
+        contactForm.querySelectorAll('.agr input[type="checkbox"]:checked')
+      ).map((el) => el.value);
     }
 
     const submitButton = contactForm.querySelector('.submit-btn');
@@ -404,29 +464,46 @@ if (contactForm) {
     submitButton.setAttribute('aria-busy', 'true');
     submitButton.textContent = '送信中...';
 
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 20000);
+
     try {
-      const response = await fetch(contactForm.action, {
+      const response = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
-        body: new FormData(contactForm),
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
         cache: 'no-store',
         credentials: 'omit',
         referrerPolicy: 'strict-origin-when-cross-origin',
+        signal: controller.signal,
       });
 
-      const result = await response.json();
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        // JSONパース失敗
+      }
+
       if (response.ok && result.success) {
         window.sessionStorage.setItem(LAST_SUBMIT_KEY, String(now));
         showThankYou(isDisclosure);
       } else if (response.status === 429) {
-        showToast('短時間に送信が集中しています。少し時間をおいてから再度お試しください。', 'warn');
+        showToast(result.message || '短時間に送信が集中しています。少し時間をおいてからお試しください。', 'warn');
+        resetCaptcha();
       } else {
         showToast(`送信に失敗しました：${result.message || '時間をおいて再度お試しください。'}`, 'error');
+        resetCaptcha();
       }
     } catch (error) {
       console.error(error);
-      showToast('送信中にエラーが発生しました。インターネット接続をご確認のうえ、再度お試しください。', 'error');
+      const message = error.name === 'AbortError'
+        ? '通信がタイムアウトしました。時間をおいて再度お試しください。'
+        : '送信中にエラーが発生しました。インターネット接続をご確認のうえ、再度お試しください。';
+      showToast(message, 'error');
+      resetCaptcha();
     } finally {
+      window.clearTimeout(timeoutId);
       submitButton.disabled = false;
       submitButton.removeAttribute('aria-busy');
       submitButton.textContent = originalText;

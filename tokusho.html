@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://web3forms.com https://hcaptcha.com https://*.hcaptcha.com; connect-src 'self' https://api.web3forms.com https://hcaptcha.com https://*.hcaptcha.com; frame-src https://hcaptcha.com https://*.hcaptcha.com; form-action 'self' https://api.web3forms.com;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://grimlily.grenadine0syrup.workers.dev; frame-src https://challenges.cloudflare.com; form-action 'self';">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -326,15 +326,10 @@ body.modal-open{overflow:hidden}
       </ul>
     </div>
 
-    <form class="modal-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" accept-charset="UTF-8">
+    <form class="modal-form" id="contactForm" novalidate>
 
-      <input type="hidden" name="access_key" value="edcda91d-2e91-4f11-986c-9fd41bcb8a5a">
-
-      <input type="hidden" name="subject" id="ct_subject" value="【GrimLily】お問い合わせ">
-
-      <input type="hidden" name="from_name" value="GrimLily お問い合わせフォーム">
-
-      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+      <!-- ハニーポット（人間には見えない隠しフィールド。botが入力したら検出される） -->
+      <input type="text" name="botcheck" id="ct_botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
 
       <div class="fsec">
         <div class="field">
@@ -445,7 +440,8 @@ body.modal-open{overflow:hidden}
 
       <div class="fsec">
         <div class="field">
-          <div class="h-captcha" data-captcha="true"></div>
+          <!-- Cloudflare Turnstile：data-sitekey は公開情報なのでHTMLに直書きOK。デプロイ前に必ず実物のSite Keyに置き換えること -->
+          <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY" data-theme="light" data-action="contact" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
           <p class="field-hint">迷惑送信防止のため、送信前に認証をお願いいたします。</p>
         </div>
       </div>
@@ -480,7 +476,7 @@ body.modal-open{overflow:hidden}
   <p>&copy; GrimLily. All Rights Reserved.</p>
 </footer>
 
-<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="./tokusho_page.js" defer></script>
 </body>
 </html>
