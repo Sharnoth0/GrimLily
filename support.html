@@ -219,6 +219,15 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
 .ripple{position:fixed;pointer-events:none;width:8px;height:8px;border-radius:50%;border:1px solid rgba(137,194,212,.35);z-index:9998;opacity:0;animation:ripO .8s forwards}
 @keyframes ripO{0%{opacity:.25;transform:scale(0)}100%{opacity:0;transform:scale(3)}}
 
+/* ===== TOAST ===== */
+.toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);max-width:min(420px,calc(100% - 40px));padding:14px 24px;background:rgba(44,54,64,.92);color:var(--white);border-radius:14px;font-family:var(--fb);font-size:.86rem;font-weight:300;letter-spacing:.04em;line-height:1.7;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 40px rgba(44,54,64,.22);z-index:10000;opacity:0;transition:opacity .4s,transform .45s cubic-bezier(.22,.61,.36,1);text-align:center;pointer-events:none;word-break:auto-phrase;overflow-wrap:break-word}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast-error{background:linear-gradient(135deg,rgba(209,179,195,.96),rgba(196,176,216,.96));color:var(--tx)}
+.toast-warn{background:linear-gradient(135deg,rgba(157,192,204,.96),rgba(196,176,216,.96));color:var(--tx)}
+@supports not (word-break: auto-phrase){
+  .toast{word-break:keep-all}
+}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:640px){
   .top-bar{padding:16px 20px}
@@ -502,6 +511,6 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
   <p>&copy; GrimLily. All Rights Reserved.</p>
 </footer>
 
-<script src="./support.page.js" defer></script>
+<script src="./support_page.js" defer></script>
 </body>
 </html>

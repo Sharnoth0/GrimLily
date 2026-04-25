@@ -2,6 +2,24 @@ const DISCLOSURE_VALUE = '事業者情報の確認';
 const LAST_SUBMIT_KEY = 'grimlily:tokusho-last-submit';
 let lastFocusedElement = null;
 
+function showToast(message, type = 'info', duration = 4500) {
+  document.querySelectorAll('.toast').forEach((existing) => existing.remove());
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+  toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  window.requestAnimationFrame(() => toast.classList.add('show'));
+
+  window.setTimeout(() => {
+    toast.classList.remove('show');
+    window.setTimeout(() => toast.remove(), 450);
+  }, duration);
+}
+
 const typeSelect = document.getElementById('ct_type');
 const contactModal = document.getElementById('contactModal');
 const thankyouModal = document.getElementById('thankyouModal');
@@ -253,20 +271,20 @@ function hasCaptchaToken() {
 
 function validateDisclosureRequest() {
   if (!roleSelect.value) {
-    alert('確認区分を選択してください。');
+    showToast('確認区分を選択してください。', 'warn');
     roleSelect.focus();
     return false;
   }
 
   const checkedItems = contactForm.querySelectorAll('input[name="確認希望情報"]:checked');
   if (checkedItems.length === 0) {
-    alert('確認をご希望の情報を1つ以上選択してください。');
+    showToast('確認をご希望の情報を1つ以上選択してください。', 'warn');
     document.getElementById('dc_items_grp').scrollIntoView({ behavior: 'smooth', block: 'center' });
     return false;
   }
 
   if (messageField.value.trim().length < 20) {
-    alert('確認理由は20文字以上で、必要性が分かるよう具体的にご記入ください。');
+    showToast('確認理由は20文字以上で、必要性が分かるよう具体的にご記入ください。', 'warn');
     messageField.focus();
     return false;
   }
@@ -366,7 +384,7 @@ if (contactForm) {
     const lastSubmitted = Number(window.sessionStorage.getItem(LAST_SUBMIT_KEY) || 0);
 
     if (now - lastSubmitted < 15000) {
-      alert('短時間の連続送信を防ぐため、15秒ほど待ってから再度お試しください。');
+      showToast('短時間の連続送信を防ぐため、15秒ほど待ってから再度お試しください。', 'warn');
       return;
     }
 
@@ -375,7 +393,7 @@ if (contactForm) {
     }
 
     if (!hasCaptchaToken()) {
-      alert('送信前に認証を完了してください。');
+      showToast('送信前に認証を完了してください。', 'warn');
       captchaContainer?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
@@ -401,13 +419,13 @@ if (contactForm) {
         window.sessionStorage.setItem(LAST_SUBMIT_KEY, String(now));
         showThankYou(isDisclosure);
       } else if (response.status === 429) {
-        alert('短時間に送信が集中しています。少し時間をおいてから再度お試しください。');
+        showToast('短時間に送信が集中しています。少し時間をおいてから再度お試しください。', 'warn');
       } else {
-        alert(`送信に失敗しました：${result.message || '時間をおいて再度お試しください。'}`);
+        showToast(`送信に失敗しました：${result.message || '時間をおいて再度お試しください。'}`, 'error');
       }
     } catch (error) {
       console.error(error);
-      alert('送信中にエラーが発生しました。インターネット接続をご確認のうえ、再度お試しください。');
+      showToast('送信中にエラーが発生しました。インターネット接続をご確認のうえ、再度お試しください。', 'error');
     } finally {
       submitButton.disabled = false;
       submitButton.removeAttribute('aria-busy');

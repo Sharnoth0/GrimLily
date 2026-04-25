@@ -8,6 +8,24 @@ const priceMap = {
   Boost: 'price_1TNLtrGfyAVlSOBgUjxgLN2h',
 };
 
+function showToast(message, type = 'info', duration = 4500) {
+  document.querySelectorAll('.toast').forEach((existing) => existing.remove());
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+  toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  window.requestAnimationFrame(() => toast.classList.add('show'));
+
+  window.setTimeout(() => {
+    toast.classList.remove('show');
+    window.setTimeout(() => toast.remove(), 450);
+  }, duration);
+}
+
 function isConfiguredPriceId(priceId) {
   return typeof priceId === 'string' && priceId.startsWith('price_') && !priceId.includes('XXXXXXXX');
 }
@@ -103,7 +121,7 @@ async function handleCheckout(plan, button) {
   const originalText = label ? label.textContent : '';
 
   if (!isConfiguredPriceId(priceId)) {
-    alert('このプランは現在お申し込み準備中です。時間をおいて再度ご確認ください。');
+    showToast('このプランは現在お申し込み準備中です。時間をおいて再度ご確認ください。', 'warn');
     return;
   }
 
@@ -149,7 +167,7 @@ async function handleCheckout(plan, button) {
     const message = error.name === 'AbortError'
       ? '通信がタイムアウトしました。時間をおいて再度お試しください。'
       : '決済ページの読み込みに失敗しました。もう一度お試しください。';
-    alert(message);
+    showToast(message, 'error');
     button.disabled = false;
     button.removeAttribute('aria-busy');
     if (label) {
