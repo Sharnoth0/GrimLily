@@ -231,9 +231,12 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
   // モーダル表示制御
   function showModal() {
     modal.classList.add('show');
+    // カスタム星カーソルを退避し、OSカーソルを表示する
+    document.body.classList.add('bgm-modal-active');
   }
   function hideModal() {
     modal.classList.remove('show');
+    document.body.classList.remove('bgm-modal-active');
   }
 
   // 音量コントロールの表示制御

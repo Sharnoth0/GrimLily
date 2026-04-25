@@ -570,6 +570,16 @@ footer p{font-family:var(--fu);font-size:.88rem;letter-spacing:.16em;color:var(-
 /* ===== BGM モーダル ===== */
 .bgm-modal-ov{position:fixed;inset:0;background:rgba(254,254,254,.55);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);z-index:10000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
 .bgm-modal-ov.show{opacity:1;visibility:visible}
+/* モーダル表示中はカスタム星カーソルを退避し、OSカーソルを復活させる */
+body.bgm-modal-active .cursor-wrap{display:none!important}
+body.bgm-modal-active.has-custom-cursor,
+body.bgm-modal-active.has-custom-cursor a,
+body.bgm-modal-active.has-custom-cursor button,
+body.bgm-modal-active.has-custom-cursor input,
+body.bgm-modal-active.has-custom-cursor textarea,
+body.bgm-modal-active.has-custom-cursor select{cursor:auto}
+body.bgm-modal-active.has-custom-cursor button,
+body.bgm-modal-active.has-custom-cursor a{cursor:pointer}
 .bgm-modal{background:linear-gradient(180deg,#fefefe 0%,#faf9fc 100%);border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 80px rgba(44,54,64,.12),0 0 0 1px rgba(255,255,255,.5) inset;border-radius:6px;max-width:420px;width:100%;padding:48px 36px 36px;text-align:center;transform:translateY(20px) scale(.96);opacity:0;transition:transform .55s cubic-bezier(.22,.61,.36,1) .1s,opacity .55s .1s}
 .bgm-modal-ov.show .bgm-modal{transform:translateY(0) scale(1);opacity:1}
 .bgm-modal-icon{width:48px;height:48px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,rgba(240,198,217,.18),rgba(196,176,216,.14));color:var(--ac)}
