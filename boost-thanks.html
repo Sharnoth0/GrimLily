@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ブラウザキャッシュ対策 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Thank You · Boost | GrimLily</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500&family=Quicksand:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fefefe;--off:#faf9fc;
+  --sf:#e6f2f7;--sl:#d0eaf4;--sm:#b4dbe8;--sd:#89c2d4;
+  --lv:#ece4f3;--ll:#f5f0fa;--lm:#d8cce6;--ld:#c4b0d8;
+  --rs:#f0c6d9;--rl:#f8e6ef;--rp:#fdf5f9;
+  --tx:#2c3640;--tm:#5a6d7a;--tl:#8a9dad;
+  --ac:#9dc0cc;--wm:#d1b3c3;
+  --fd:'Cormorant Garamond',serif;--fb:'Noto Serif JP',serif;
+  --fu:'Quicksand',sans-serif;--fa:'Playfair Display',serif;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--fb);color:var(--tx);background:var(--white);min-height:100vh;overflow-x:hidden;position:relative}
+::selection{background:var(--sl);color:var(--tx)}
+
+/* ── Background ── */
+.bg{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,var(--sf) 0%,var(--white) 30%,var(--ll) 60%,var(--rp) 85%,var(--white) 100%)}
+.glow{position:fixed;z-index:-1;border-radius:50%;pointer-events:none;animation:gDrift 18s ease-in-out infinite alternate}
+.glow-1{top:-10%;left:10%;width:520px;height:520px;background:radial-gradient(ellipse,rgba(240,198,217,.14),transparent 65%)}
+.glow-2{bottom:-15%;right:5%;width:480px;height:480px;background:radial-gradient(ellipse,rgba(157,192,204,.12),transparent 65%);animation-delay:-9s}
+.glow-3{top:40%;left:50%;width:360px;height:360px;background:radial-gradient(ellipse,rgba(196,176,216,.1),transparent 65%);animation-delay:-4s}
+@keyframes gDrift{0%{opacity:.4;transform:scale(1) translate(0,0)}100%{opacity:.75;transform:scale(1.18) translate(3%,6%)}}
+
+/* ── Particles ── */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:pFloat linear infinite}
+@keyframes pFloat{0%{transform:translateY(100vh) scale(0);opacity:0}15%{opacity:.6}85%{opacity:.3}100%{transform:translateY(-10vh) scale(1.15);opacity:0}}
+
+/* ── Petals drift ── */
+.petal{position:fixed;pointer-events:none;z-index:-1;animation:petalFall linear infinite}
+@keyframes petalFall{
+  0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+  10%{opacity:.7}
+  90%{opacity:.5}
+  100%{transform:translateY(110vh) rotate(540deg);opacity:0}
+}
+
+/* ── Page layout ── */
+.wrap{max-width:620px;margin:0 auto;padding:100px 28px 80px;position:relative;z-index:1}
+
+/* ── Header ── */
+.header{text-align:center;margin-bottom:52px;opacity:0;animation:fadeUp 1s .2s forwards}
+.logo{font-family:var(--fd);font-size:1.4rem;letter-spacing:.28em;color:var(--tl);margin-bottom:16px;font-weight:300}
+.badge{display:inline-block;font-family:var(--fu);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 22px;border-radius:18px;background:linear-gradient(135deg,var(--wm),var(--ld));color:var(--white);margin-bottom:28px;box-shadow:0 3px 14px rgba(209,179,195,.3)}
+.h-title{font-family:var(--fd);font-size:clamp(1.6rem,4.5vw,2.2rem);font-weight:300;letter-spacing:.1em;line-height:1.5;margin-bottom:14px}
+.h-title .em{background:linear-gradient(transparent 58%,rgba(240,198,217,.3) 58%,rgba(196,176,216,.25) 100%);padding:0 8px}
+.h-sub{font-family:var(--fa);font-style:italic;font-size:.9rem;color:var(--wm);letter-spacing:.06em;margin-bottom:8px}
+.h-divider{width:48px;height:1px;margin:28px auto 0;background:linear-gradient(90deg,transparent,var(--ac),var(--ld),transparent)}
+
+/* ── Main card ── */
+.card{background:rgba(255,255,255,.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.6);border-radius:22px;padding:44px 36px;box-shadow:0 10px 40px rgba(137,194,212,.08);margin-bottom:32px;opacity:0;animation:fadeUp 1s .45s forwards;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--wm),var(--ld),var(--ac),transparent)}
+.card-icon{width:72px;height:72px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(240,198,217,.2),rgba(157,192,204,.15));display:flex;align-items:center;justify-content:center;position:relative}
+.card-icon::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(209,179,195,.25);animation:iconPulse 3s ease-in-out infinite}
+@keyframes iconPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:0;transform:scale(1.15)}}
+.card-icon svg{width:32px;height:32px;color:var(--wm)}
+.card-body p{font-size:.92rem;color:var(--tm);line-height:2.1;font-weight:300;margin-bottom:18px;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word;text-wrap:pretty}
+.card-body p:last-child{margin-bottom:0}
+.card-body strong{color:var(--tx);font-weight:400}
+/* word-break: auto-phrase 未対応ブラウザ用のフォールバック */
+@supports not (word-break: auto-phrase){
+  .card-body p{word-break:keep-all}
+}
+
+/* ── Thank you signature ── */
+.sig{text-align:center;margin-top:36px;opacity:0;animation:fadeUp 1s .7s forwards}
+.sig-line{width:28px;height:1px;margin:0 auto 18px;background:linear-gradient(90deg,transparent,var(--wm),transparent)}
+.sig-text{font-family:var(--fa);font-style:italic;font-size:1.15rem;color:var(--tx);letter-spacing:.04em;margin-bottom:6px;font-weight:400}
+.sig-brand{font-family:var(--fd);font-size:.88rem;letter-spacing:.3em;color:var(--tl);text-transform:uppercase;font-weight:300}
+
+/* ── Back button ── */
+.back-section{text-align:center;margin-top:48px;opacity:0;animation:fadeUp 1s .9s forwards}
+.back-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 40px;border-radius:32px;background:linear-gradient(135deg,var(--ac),var(--ld));color:var(--white);text-decoration:none;font-family:var(--fu);font-size:.84rem;letter-spacing:.12em;font-weight:500;box-shadow:0 5px 22px rgba(157,192,204,.3);transition:all .4s cubic-bezier(.22,.61,.36,1)}
+.back-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(157,192,204,.4)}
+.back-btn svg{width:16px;height:16px;transition:transform .3s}
+.back-btn:hover svg{transform:translateX(-4px)}
+
+/* ── Footer ── */
+footer{text-align:center;padding:40px 24px 32px;opacity:.6}
+.f-line{width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:0 auto 12px}
+footer p{font-family:var(--fu);font-size:.7rem;letter-spacing:.15em;color:var(--tl)}
+.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{font-family:var(--fu);font-size:.7rem;letter-spacing:.1em;color:var(--tl);text-decoration:none;border-bottom:1px solid rgba(209,179,195,.3);padding-bottom:2px;transition:color .3s,border-color .3s}
+.footer-links a:hover{color:var(--tx);border-color:rgba(209,179,195,.6)}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ── Mouse ripple ── */
+.ripple{position:fixed;pointer-events:none;width:8px;height:8px;border-radius:50%;border:1px solid rgba(209,179,195,.4);z-index:9998;opacity:0;animation:ripO .9s forwards}
+@keyframes ripO{0%{opacity:.3;transform:scale(0)}100%{opacity:0;transform:scale(3.5)}}
+
+@media(max-width:640px){
+  .wrap{padding:80px 20px 60px}
+  .card{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+<div class="particles" id="particles"></div>
+
+<div class="wrap">
+
+  <div class="header">
+    <p class="logo">GrimLily</p>
+    <div class="badge">Thank You · Boost</div>
+    <h1 class="h-title">心からの<span class="em">感謝</span>を<br>お伝えさせてください</h1>
+    <p class="h-sub">Your support means everything</p>
+    <div class="h-divider"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    </div>
+    <div class="card-body">
+      <p>このたびは GrimLily へ温かいご支援をお寄せいただき、<strong>本当にありがとうございます</strong>。</p>
+      <p>応援してくださる方がいるということが、何よりの励みになります。</p>
+      <p>これからも、少しでも良いものをお届けできるよう真摯に取り組んでまいりますので、よろしくお願いいたします。</p>
+    </div>
+  </div>
+
+  <div class="sig">
+    <div class="sig-line"></div>
+    <p class="sig-text">Thank you, from the bottom of our heart.</p>
+    <p class="sig-brand">GrimLily</p>
+  </div>
+
+  <div class="back-section">
+    <a href="/support.html" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7l-7 7 7 7"/></svg>
+      <span>サポートページに戻る</span>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="f-line"></div>
+  <div class="footer-links">
+    <a href="/tokusho.html">特定商取引法に基づく表記</a>
+    <a href="/privacy.html">プライバシーポリシー</a>
+  </div>
+  <p>&copy; GrimLily. All Rights Reserved.</p>
+</footer>
+
+<script>
+/* ── Particles ── */
+(function(){
+  const c=document.getElementById('particles');
+  const colors=['rgba(240,198,217,.3)','rgba(209,179,195,.25)','rgba(196,176,216,.22)','rgba(157,192,204,.2)'];
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const s=Math.random()*2.8+1.8;
+    p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;background:'+colors[i%4]+';animation-duration:'+(Math.random()*10+14)+'s;animation-delay:'+(Math.random()*12)+'s;';
+    c.appendChild(p);
+  }
+})();
+
+/* ── Floating petals ── */
+(function(){
+  const colors=['rgba(240,198,217,.5)','rgba(209,179,195,.45)','rgba(196,176,216,.4)'];
+  for(let i=0;i<8;i++){
+    const petal=document.createElement('div');
+    petal.className='petal';
+    const size=Math.random()*10+8;
+    petal.style.cssText='width:'+size+'px;height:'+size+'px;left:'+Math.random()*100+'%;background:'+colors[i%3]+';border-radius:50% 0 50% 50%;animation-duration:'+(Math.random()*12+16)+'s;animation-delay:'+(Math.random()*16)+'s;filter:blur(1px);';
+    document.body.appendChild(petal);
+  }
+})();
+
+/* ── Mouse ripple (desktop) ── */
+if(matchMedia('(pointer:fine)').matches){
+  let t=0;
+  document.addEventListener('mousemove',function(e){
+    const n=Date.now();if(n-t<160)return;t=n;
+    const r=document.createElement('div');r.className='ripple';
+    r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';
+    document.body.appendChild(r);setTimeout(function(){r.remove()},900);
+  });
+}
+</script>
+
+</body>
+</html>
